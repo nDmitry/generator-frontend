@@ -6,7 +6,7 @@ Scaffolds out a boilerplate for front-end development with Grunt, SASS and Compa
 ## Getting started
 - Make sure you have [yo](https://github.com/yeoman/yo) installed:
     `npm install -g yo`
-- Install the generator **locally**: `npm install generator-frontend`
+- Install the generator: `npm install [-g] generator-frontend`
 - Run: `yo frontend`
 
 ## License
