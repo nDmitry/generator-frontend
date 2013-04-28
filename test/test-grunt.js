@@ -25,7 +25,8 @@ describe('grunt generator', function () {
 
     it('creates expected files', function (done) {
         var expected = [
-            'Gruntfile.js'
+            'Gruntfile.js',
+            'package.json'
         ];
 
         this.app.options['skip-install'] = true;

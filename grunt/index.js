@@ -19,6 +19,7 @@ Generator.prototype.grunt = function grunt () {
         if (err) { return cb(err); }
 
         remote.copy('Gruntfile.js', 'Gruntfile.js');
+        remote.copy('package.json', 'package.json');
 
         cb();
     });
