@@ -1,0 +1,37 @@
+{
+  "name": "generator-frontend",
+  "version": "0.1.0",
+  "description": "Scaffolds out a boilerplate for front-end development.",
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "homepage": "https://github.com/nDmitry/generator-frontend",
+  "bugs": "https://github.com/nDmitry/generator-frontend/issues",
+  "author": {
+    "name": "nDmitry",
+    "email": "dima.nikitenko@gmail.com",
+    "url": "https://github.com/nDmitry"
+  },
+  "main": "app/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nDmitry/generator-frontend.git"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "yeoman-generator": "~0.10.2"
+  },
+  "devDependencies": {
+    "mocha": "~1.9.0"
+  },
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ]
+}
