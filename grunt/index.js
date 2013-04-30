@@ -15,7 +15,7 @@ Generator.prototype.grunt = function grunt () {
 
     this.log.info('Fetching Grunt boilerplate...');
 
-    this.remote('nDmitry', 'grunt-frontend-boilerplate', function(err, remote) {
+    this.remote('nDmitry', 'grunt-frontend', function(err, remote) {
         if (err) { return cb(err); }
 
         remote.copy('Gruntfile.js', 'Gruntfile.js');
