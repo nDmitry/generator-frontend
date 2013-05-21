@@ -26,7 +26,7 @@ describe('sass generator', function () {
     it('creates expected files', function (done) {
         var expected = [
             'src/sass/main.scss',
-            'src/sass/lib/_base.scss'
+            'src/sass/lib/_mixins.scss'
         ];
 
         this.app.options['skip-install'] = true;
