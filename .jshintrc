@@ -19,7 +19,6 @@
     "maxparams": 4,
     "boss": true,
     "eqnull": true,
-    "es5": true,
     "lastsemic": true,
     "browser": true,
     "jquery": true,
