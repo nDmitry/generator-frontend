@@ -1,6 +1,7 @@
 .editorconfig
 .gitattributes
 .gitignore
+**/.gitkeep
 .jshintrc
 .travis.yml
 test

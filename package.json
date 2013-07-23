@@ -1,6 +1,6 @@
 {
   "name": "generator-frontend",
-  "version": "0.1.20130521",
+  "version": "0.1.20130723",
   "description": "Scaffolds out a boilerplate for front-end development.",
   "keywords": [
     "yeoman-generator"
@@ -21,10 +21,10 @@
     "test": "mocha"
   },
   "dependencies": {
-    "yeoman-generator": "~0.10.2"
+    "yeoman-generator": "~0.12"
   },
   "devDependencies": {
-    "mocha": "~1.9.0"
+    "mocha": "~1.12"
   },
   "engines": {
     "node": ">=0.8.0"
