@@ -15,6 +15,8 @@ Generator.prototype.scaffold = function scaffold () {
 
     this.directory('out/', 'out/');
     this.directory('src/', 'src/');
+    this.mkdir('src/fonts');
+    this.mkdir('src/img');
     this.copy('editorconfig', '.editorconfig');
     this.copy('jshintrc', '.jshintrc');
 };
