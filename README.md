@@ -1,7 +1,7 @@
 # generator-frontend
 [![Build Status](https://secure.travis-ci.org/nDmitry/generator-frontend.png?branch=master)](https://travis-ci.org/nDmitry/generator-frontend)
 
-Scaffolds out a boilerplate for front-end development with Grunt, SASS and Compass.
+Scaffolds out a boilerplate for front-end development with Grunt and Stylus.
 
 ## Getting started
 - Make sure you have [yo](https://github.com/yeoman/yo) installed:
