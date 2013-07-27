@@ -16,7 +16,7 @@ describe('Generator', function () {
     });
 
     it('can be imported without blowing up (sass)', function () {
-        var app = require('../sass');
+        var app = require('../stylus');
         assert(app !== undefined);
     });
 });
