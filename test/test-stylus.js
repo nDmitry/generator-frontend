@@ -6,7 +6,7 @@ var path = require('path');
 var helpers = require('yeoman-generator').test;
 
 
-describe('sass generator', function () {
+describe('stylus generator', function () {
     this.timeout(10000);
 
     beforeEach(function (done) {
@@ -25,7 +25,7 @@ describe('sass generator', function () {
 
     it('creates expected files', function (done) {
         var expected = [
-            'src/stylus/main.styl',
+            'src/stylus/index.styl',
             'src/stylus/lib/mixins.styl'
         ];
 

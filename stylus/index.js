@@ -19,12 +19,10 @@ Generator.prototype.stylus = function stylus () {
     this.remote('nDmitry', 'stylus', function(err, remote) {
         if (err) { return cb(err); }
 
-        remote.directory('.', 'src/stylus/');
+        remote.directory('lib/', 'src/stylus/lib/');
+        remote.directory('partials/', 'src/stylus/partials/');
+        remote.copy('index.styl', 'src/stylus/index.styl');
 
         cb();
     });
-};
-
-Generator.prototype.remove = function remove () {
-    fs.unlinkSync(path.join(process.cwd(), 'src/stylus/.gitignore'));
 };
