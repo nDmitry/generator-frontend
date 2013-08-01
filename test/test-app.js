@@ -27,9 +27,9 @@ describe('app generator', function () {
         var expected = [
             'src/index.html',
             'src/js/app.js',
-            'out/js/vendor/html5shiv.min.js',
             '.editorconfig',
-            '.jshintrc'
+            '.jshintrc',
+            '.bowerrc'
         ];
 
         this.app.options['skip-install'] = true;
