@@ -120,8 +120,7 @@ module.exports = function(grunt) {
 
         csso: {
             options: {
-                report: 'min',
-                banner: '<%= banner %>'
+                report: 'min'
             },
             dist: {
                 src: '<%= buildDir %>/<%= cssDir %>/main.css',
