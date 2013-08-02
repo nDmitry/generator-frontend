@@ -5,10 +5,10 @@ Scaffolds out the ‘boilerplate’ for front-end development with Grunt and Sty
 ## Getting started
 - Make sure you have [yo](https://github.com/yeoman/yo) installed: `npm install -g yo`
 - Install the generator: `npm install [-g] generator-frontend`
-- Run: `yo frontend "project-name"`
+- Run: `yo frontend`
 
 ## Subgenerators
-Generator includes two subgenerators: `app` and `stylus`. You can run them separately with the commands: `yo frontend:app "project-name"` and `yo frontend:stylus`.
+Generator includes two subgenerators: `app` and `stylus`. You can run them separately with the commands: `yo frontend:app` and `yo frontend:stylus`.
 
 ### App subgenerator
 
