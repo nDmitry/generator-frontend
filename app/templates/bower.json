@@ -5,6 +5,7 @@
     "html5shiv-dist": "git://github.com/spekkionu/html5shiv-dist.git#*",
     "jquery": "git://github.com/components/jquery.git#1.10",
     "flexslider": "git://github.com/woothemes/FlexSlider.git",
-    "jquery.herotabs": "git://github.com/simonsmith/jquery.herotabs.git#1.2"
+    "jquery.herotabs": "git://github.com/simonsmith/jquery.herotabs.git#1.2",
+    "jquery-powertip": "http://stevenbenner.github.io/jquery-powertip/releases/jquery.powertip-1.2.0.zip"
   }
 }
