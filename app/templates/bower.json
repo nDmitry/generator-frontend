@@ -3,6 +3,7 @@
   "private": true,
   "dependencies": {
     "html5shiv-dist": "git://github.com/spekkionu/html5shiv-dist.git#*",
-    "jquery": "git://github.com/components/jquery.git#1.10"
+    "jquery": "git://github.com/components/jquery.git#1.10",
+    "flexslider": "git://github.com/woothemes/FlexSlider.git"
   }
 }
