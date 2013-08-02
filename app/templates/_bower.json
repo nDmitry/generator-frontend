@@ -1,5 +1,5 @@
 {
-  "name": "grunt-frontend",
+  "name": "<%= _.slugify(name) %>",
   "private": true,
   "dependencies": {
     "html5shiv": "git://github.com/spekkionu/html5shiv-dist.git#*",

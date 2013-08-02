@@ -4,22 +4,31 @@ var util = require('util'),
     yeoman = require('yeoman-generator');
 
 
-var Generator = module.exports = function Generator () {
-    yeoman.generators.Base.apply(this, arguments);
+var FrontendGenerator = module.exports = function FrontendGenerator() {
+    yeoman.generators.NamedBase.apply(this, arguments);
 };
 
-util.inherits(Generator, yeoman.generators.NamedBase);
+util.inherits(FrontendGenerator, yeoman.generators.NamedBase);
 
-Generator.prototype.scaffold = function scaffold () {
+FrontendGenerator.prototype.app = function app() {
     this.log.info('Creating front-end scaffolding...');
 
-    this.directory('out/', 'out/');
+    // Copy directories
     this.directory('src/', 'src/');
+
+    // Make some empty directories
     this.mkdir('src/fonts');
-    this.mkdir('src/img');
     this.mkdir('src/img/sprites');
+
+    // Copy config files
+    this.copy('gitignore', '.gitignore');
     this.copy('editorconfig', '.editorconfig');
     this.copy('jshintrc', '.jshintrc');
     this.copy('bowerrc', '.bowerrc');
-    this.copy('bower.json', 'bower.json');
+    this.copy('Gruntfile.js', 'Gruntfile.js');
+
+    // Compile templates
+    this.template('_bower.json', 'bower.json');
+    this.template('_package.json', 'package.json');
+    this.template('_index.html', 'src/index.html');
 };

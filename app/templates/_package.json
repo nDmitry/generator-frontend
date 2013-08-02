@@ -1,0 +1,22 @@
+{
+  "name": "<%= _.slugify(name) %>",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "connect-livereload": "~0.2",
+    "matchdep": "~0.1",
+    "grunt": "~0.4.1",
+    "grunt-autoprefixer": "~0.2",
+    "grunt-bake": "~0.2",
+    "grunt-contrib-compress": "~0.5",
+    "grunt-contrib-connect": "~0.3",
+    "grunt-contrib-copy": "~0.4",
+    "grunt-contrib-csslint": "~0.1",
+    "grunt-contrib-stylus": "~0.7",
+    "grunt-contrib-uglify": "~0.2",
+    "grunt-contrib-watch": "~0.5",
+    "grunt-csso": "~0.5",
+    "grunt-pngmin": "~0.6",
+    "grunt-spritesmith": "~1.5.2"
+  }
+}

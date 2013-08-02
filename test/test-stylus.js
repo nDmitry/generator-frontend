@@ -6,11 +6,11 @@ var path = require('path');
 var helpers = require('yeoman-generator').test;
 
 
-describe('stylus generator', function () {
+describe('stylus generator', function() {
     this.timeout(10000);
 
-    beforeEach(function (done) {
-        helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
+    beforeEach(function(done) {
+        helpers.testDirectory(path.join(__dirname, 'temp'), function(err) {
             if (err) {
                 return done(err);
             }
@@ -23,7 +23,7 @@ describe('stylus generator', function () {
         }.bind(this));
     });
 
-    it('creates expected files', function (done) {
+    it('creates expected files', function(done) {
         var expected = [
             'src/stylus/index.styl',
             'src/stylus/lib/mixins.styl'
@@ -31,7 +31,7 @@ describe('stylus generator', function () {
 
         this.app.options['skip-install'] = true;
 
-        this.app.run({}, function () {
+        this.app.run({}, function() {
             helpers.assertFiles(expected);
             done();
         });
