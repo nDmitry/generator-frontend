@@ -1,11 +1,19 @@
 'use strict';
 
-var util = require('util'),
+var path = require('path'),
+    util = require('util'),
     yeoman = require('yeoman-generator');
 
 
 var FrontendGenerator = module.exports = function FrontendGenerator() {
     yeoman.generators.NamedBase.apply(this, arguments);
+
+    this.argument('name', {
+        type: String,
+        required: false
+    });
+
+    this.name = this.name || path.basename(process.cwd());
 };
 
 util.inherits(FrontendGenerator, yeoman.generators.NamedBase);
