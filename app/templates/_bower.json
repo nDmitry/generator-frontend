@@ -1,5 +1,5 @@
 {
-  "name": "<%= _.slugify(name) %>",
+  "name": "<%= _.slugify(projectName) %>",
   "private": true,
   "dependencies": {
     "html5shiv": "git://github.com/spekkionu/html5shiv-dist.git#*",

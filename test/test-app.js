@@ -19,13 +19,15 @@ describe('app generator', function() {
                 '../../app'
             ]);
 
+            this.app.options['skip-install'] = true;
+
             done();
         }.bind(this));
     });
 
     it('creates expected files', function(done) {
         var expected = [
-            'src/index.html',
+            ['src/index.html', /<title>Temp<\/title>/],
             'src/includes/header.html',
             'src/includes/footer.html',
             'src/js/app.js',
@@ -33,12 +35,14 @@ describe('app generator', function() {
             '.editorconfig',
             '.jshintrc',
             '.bowerrc',
-            'bower.json',
-            'package.json',
+            ['bower.json', /"name": "temp"/],
+            ['package.json', /"name": "temp"/],
             'Gruntfile.js'
         ];
 
-        this.app.options['skip-install'] = true;
+        helpers.mockPrompt(this.app, {
+            projectName: 'temp'
+        });
 
         this.app.run({}, function() {
             helpers.assertFiles(expected);

@@ -6,17 +6,25 @@ var path = require('path'),
 
 
 var FrontendGenerator = module.exports = function FrontendGenerator() {
-    yeoman.generators.NamedBase.apply(this, arguments);
-
-    this.argument('name', {
-        type: String,
-        required: false
-    });
-
-    this.name = this.name || path.basename(process.cwd());
+    yeoman.generators.Base.apply(this, arguments);
 };
 
 util.inherits(FrontendGenerator, yeoman.generators.NamedBase);
+
+FrontendGenerator.prototype.askFor = function askFor() {
+    var cb = this.async();
+
+    var prompts = [{
+        name: 'projectName',
+        message: 'Project Name',
+        default: path.basename(process.cwd())
+    }];
+
+    this.prompt(prompts, function(props) {
+        this.projectName = props.projectName;
+        cb();
+    }.bind(this));
+};
 
 FrontendGenerator.prototype.app = function app() {
     this.log.info('Creating front-end scaffolding...');
