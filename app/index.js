@@ -5,8 +5,14 @@ var path = require('path'),
     yeoman = require('yeoman-generator');
 
 
-var FrontendGenerator = module.exports = function FrontendGenerator() {
+var FrontendGenerator = module.exports = function FrontendGenerator(arg, options) {
     yeoman.generators.Base.apply(this, arguments);
+
+    this.on('end', function () {
+        this.installDependencies({
+            skipInstall: options['skip-install']
+        });
+    });
 };
 
 util.inherits(FrontendGenerator, yeoman.generators.NamedBase);
