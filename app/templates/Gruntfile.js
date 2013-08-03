@@ -11,6 +11,7 @@ module.exports = function(grunt) {
         buildDir: 'out',
         jsDir: 'js',
         jsVendorDir: 'vendor',
+        jsBuildName: 'app',
         stylusDir: 'stylus',
         cssDir: 'css',
         imgDir: 'img',
@@ -128,19 +129,28 @@ module.exports = function(grunt) {
             }
         },
 
+        browserify: {
+            options: {
+                debug: true,
+                ignore: '<%= bower.directory %>/**',
+                entry: '<%= srcDir %>/<%= jsDir %>/app.js'
+            },
+            dist: {
+                src: [
+                    '<%= srcDir %>/<%= jsDir %>/**/*.js'
+                ],
+                dest: '<%= buildDir %>/<%= jsDir %>/<%= jsBuildName %>.js'
+            }
+        },
+
         uglify: {
             options: {
                 report: 'min',
-                banner: '<%= banner %>',
-                sourceMap: '<%= buildDir %>/<%= jsDir %>/app.min.map',
-                sourceMappingURL: '/<%= uglify.options.sourceMap %>',
-                sourceMapRoot: '/'
+                banner: '<%= banner %>'
             },
             dist: {
-                'src': [
-                    '<%= srcDir %>/<%= jsDir %>/app.js',
-                ],
-                'dest': '<%= buildDir %>/<%= jsDir %>/app.min.js'
+                src: '<%= buildDir %>/<%= jsDir %>/<%= jsBuildName %>.js',
+                dest: '<%= buildDir %>/<%= jsDir %>/<%= jsBuildName %>.min.js'
             }
         },
 
@@ -203,7 +213,7 @@ module.exports = function(grunt) {
 
             js: {
                 files: ['<%= srcDir %>/<%= jsDir %>/**/*.js'],
-                tasks: ['uglify']
+                tasks: ['browserify']
             },
 
             img: {
@@ -222,6 +232,6 @@ module.exports = function(grunt) {
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
     grunt.registerTask('default', ['connect', 'copy:components', 'bake', 'watch']);
-    grunt.registerTask('release', ['pngmin', 'csso', 'compress']);
+    grunt.registerTask('release', ['uglify', 'pngmin', 'csso', 'compress']);
 
 };
