@@ -12,18 +12,19 @@ Generator includes two subgenerators: `app` and `stylus`. You can run them separ
 
 ### App subgenerator
 
-The subgenerator scaffolds out some starting files (e.g. empty `app.js`, HTML files based on h5bp), Gruntfile.js to process them and build, Bower config files with some often necessary components, `.jshintrc`, `.editorconfig` and `.gitignore`.
+The subgenerator scaffolds out some starting files (e.g. empty `app.js`, Handlebars templates based on h5bp), Gruntfile.js to process them and build, Bower config files with some often necessary components, `.jshintrc`, `.editorconfig` and `.gitignore`.
 
 List of what my Grunt config can make for you:
 * Local Connect web-server
 * Live reload
-* HTML includes and l10n
-* Stylus compiling
-* Prefix your output CSS with Autoprefixer
+* Compiling Handlebars templates to HTML
+* Compiling Stylus
+* Prefixing your output CSS with Autoprefixer
 * Spriting with output to sprites.styl file
 * CSS liniting
-* CSS and JS minification
+* Compile CJS modules with Browserify
 * Handling Bower components
+* CSS and JS minification
 * Image optimization
 * Zipping build directory
 
