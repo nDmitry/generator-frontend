@@ -52,5 +52,5 @@ FrontendGenerator.prototype.app = function app() {
     // Compile templates
     this.template('_bower.json', 'bower.json');
     this.template('_package.json', 'package.json');
-    this.template('_index.html', 'src/index.html');
+    this.template('_layout.hbs', 'src/layout.hbs');
 };

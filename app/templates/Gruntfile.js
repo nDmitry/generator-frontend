@@ -17,6 +17,7 @@ module.exports = function(grunt) {
         imgDir: 'img',
         fontsDir: 'fonts',
         includesDir: 'includes',
+        templatesDir: 'templates',
 
         connect: {
             server: {
@@ -57,7 +58,7 @@ module.exports = function(grunt) {
                     'html5shiv/html5shiv.js',
                     'bpopup/jquery.bpopup.min.js',
                     'flexslider/jquery.flexslider-min.js',
-                    'herotabs/jquery.herotabs.min.js',
+                    'herotabs/dist/jquery.herotabs.min.js',
                     'powertip/jquery.powertip.min.js',
                     // More components here
                 ],
@@ -65,11 +66,26 @@ module.exports = function(grunt) {
             }
         },
 
-        bake: {
-            dist: {
-                expand: true,
-                cwd: '<%= srcDir %>/',
-                src: '*.html',
+        assemble: {
+            options: {
+                layoutdir: '<%= srcDir %>/',
+                layout: 'layout.hbs',
+                partials: ['<%= srcDir %>/<%= includesDir %>/*.hbs'],
+                flatten: true,
+                jsBuildName: '<%= jsBuildName %>'
+            },
+            debug: {
+                options: {
+                    debug: true
+                },
+                src: '<%= srcDir %>/<%= templatesDir %>/*.hbs',
+                dest: '<%= buildDir %>/'
+            },
+            release: {
+                options: {
+                    debug: false
+                },
+                src: '<%= srcDir %>/<%= templatesDir %>/*.hbs',
                 dest: '<%= buildDir %>/'
             }
         },
@@ -201,14 +217,14 @@ module.exports = function(grunt) {
                 livereload: true
             },
 
-            html: {
-                files: ['<%= srcDir %>/*.html', 'src/includes/*.html'],
-                tasks: ['bake']
+            hbs: {
+                files: ['<%= srcDir %>/**/*.hbs'],
+                tasks: ['assemble:debug']
             },
 
             stylus: {
                 files: ['<%= srcDir %>/<%= stylusDir %>/**/*.styl'],
-                tasks: ['stylus', 'autoprefixer', 'csslint', 'csso']
+                tasks: ['stylus', 'autoprefixer', 'csslint']
             },
 
             js: {
@@ -230,8 +246,17 @@ module.exports = function(grunt) {
     });
 
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
+    grunt.loadNpmTasks('assemble');
 
-    grunt.registerTask('default', ['connect', 'copy:components', 'bake', 'watch']);
-    grunt.registerTask('release', ['uglify', 'pngmin', 'csso', 'compress']);
+    grunt.registerTask('default', [
+        'connect',
+        'copy:components',
+        'assemble:debug',
+        'stylus', 'autoprefixer',
+        'browserify',
+        'watch'
+    ]);
+
+    grunt.registerTask('release', ['uglify', 'csso', 'assemble:release', 'pngmin', 'compress']);
 
 };

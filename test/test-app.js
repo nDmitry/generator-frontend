@@ -27,9 +27,10 @@ describe('app generator', function() {
 
     it('creates expected files', function(done) {
         var expected = [
-            ['src/index.html', /<title>Temp<\/title>/],
-            'src/includes/header.html',
-            'src/includes/footer.html',
+            ['src/layout.hbs', /<title>Temp<\/title>/],
+            'src/includes/header.hbs',
+            'src/includes/footer.hbs',
+            'src/includes/scripts.hbs',
             'src/js/app.js',
             '.gitignore',
             '.editorconfig',
