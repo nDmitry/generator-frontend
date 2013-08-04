@@ -118,7 +118,6 @@ module.exports = function(grunt) {
                 'box-model': false,
                 'box-sizing': false,
                 'compatible-vendor-prefixes': false,
-                'duplicate-background-images': false, // because of Spriter
                 'font-sizes': false,
                 gradients: false,
                 important: false,
