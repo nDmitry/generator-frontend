@@ -10,8 +10,9 @@ module.exports = function(grunt) {
         srcDir: 'src',
         buildDir: 'out',
         jsDir: 'js',
-        jsVendorDir: 'vendor',
-        jsBuildName: 'app',
+        jsVendorName: 'vendor',
+        jsAppName: 'app',
+        jsBundleName: 'bundle',
         stylusDir: 'stylus',
         cssDir: 'css',
         imgDir: 'img',
@@ -47,22 +48,6 @@ module.exports = function(grunt) {
                 cwd: '<%= srcDir %>/<%= fontsDir %>/',
                 src: ['**'],
                 dest: '<%= buildDir %>/<%= fontsDir %>/'
-            },
-
-            components: {
-                expand: true,
-                flatten: true,
-                cwd: '<%= bower.directory %>',
-                src: [
-                    'jquery/jquery.min.js', 'jquery/jquery.min.map',
-                    'html5shiv/html5shiv.js',
-                    'bpopup/jquery.bpopup.min.js',
-                    'flexslider/jquery.flexslider-min.js',
-                    'herotabs/dist/jquery.herotabs.min.js',
-                    'powertip/jquery.powertip.min.js',
-                    // More components here
-                ],
-                dest: '<%= buildDir %>/<%= jsDir %>/<%= jsVendorDir %>/'
             }
         },
 
@@ -72,7 +57,9 @@ module.exports = function(grunt) {
                 layout: 'layout.hbs',
                 partials: ['<%= srcDir %>/<%= includesDir %>/*.hbs'],
                 flatten: true,
-                jsBuildName: '<%= jsBuildName %>'
+                jsVendorName: '<%= jsVendorName %>',
+                jsAppName: '<%= jsAppName %>',
+                jsBundleName: '<%= jsBundleName %>'
             },
             debug: {
                 options: {
@@ -119,8 +106,8 @@ module.exports = function(grunt) {
                 'box-sizing': false,
                 'compatible-vendor-prefixes': false,
                 'font-sizes': false,
-                gradients: false,
-                important: false,
+                'gradients': false,
+                'important': false,
                 'outline-none': false,
                 'qualified-headings': false,
                 'regex-selectors': false,
@@ -144,17 +131,35 @@ module.exports = function(grunt) {
             }
         },
 
+        concat: {
+            vendor: {
+                src: [
+                    '<%= bower.directory %>/jquery/jquery.js',
+                    '<%= bower.directory %>/bpopup/jquery.bpopup.js',
+                    '<%= bower.directory %>/flexslider/jquery.flexslider.js',
+                    '<%= bower.directory %>/herotabs/dist/jquery.herotabs.js',
+                    '<%= bower.directory %>/powertip/jquery.powertip.js',
+                    // More components here
+                ],
+                dest: '<%= buildDir %>/<%= jsDir %>/<%= jsVendorName %>.js'
+            },
+        },
+
         browserify: {
             options: {
                 debug: true,
-                ignore: '<%= bower.directory %>/**',
-                entry: '<%= srcDir %>/<%= jsDir %>/app.js'
+                ignore: '<%= bower.directory %>/**'
             },
-            dist: {
-                src: [
-                    '<%= srcDir %>/<%= jsDir %>/**/*.js'
-                ],
-                dest: '<%= buildDir %>/<%= jsDir %>/<%= jsBuildName %>.js'
+            debug: {
+                src: '<%= srcDir %>/<%= jsDir %>/**/*.js',
+                dest: '<%= buildDir %>/<%= jsDir %>/<%= jsAppName %>.js'
+            },
+            release: {
+                options: {
+                    debug: false
+                },
+                src: '<%= srcDir %>/<%= jsDir %>/**/*.js',
+                dest: '<%= buildDir %>/<%= jsDir %>/<%= jsAppName %>.js'
             }
         },
 
@@ -164,8 +169,11 @@ module.exports = function(grunt) {
                 banner: '<%= banner %>'
             },
             dist: {
-                src: '<%= buildDir %>/<%= jsDir %>/<%= jsBuildName %>.js',
-                dest: '<%= buildDir %>/<%= jsDir %>/<%= jsBuildName %>.min.js'
+                src: [
+                    '<%= buildDir %>/<%= jsDir %>/<%= jsVendorName %>.js',
+                    '<%= buildDir %>/<%= jsDir %>/<%= jsAppName %>.js'
+                ],
+                dest: '<%= buildDir %>/<%= jsDir %>/<%= jsBundleName %>.min.js'
             }
         },
 
@@ -228,7 +236,12 @@ module.exports = function(grunt) {
 
             js: {
                 files: ['<%= srcDir %>/<%= jsDir %>/**/*.js'],
-                tasks: ['browserify']
+                tasks: ['browserify:debug']
+            },
+
+            jsVendor: {
+                files: ['<%= bower.directory %>/**/*.js'],
+                tasks: ['concat:vendor']
             },
 
             img: {
@@ -249,13 +262,19 @@ module.exports = function(grunt) {
 
     grunt.registerTask('default', [
         'connect',
-        'copy:components',
+        'concat:vendor', 'browserify:debug',
         'assemble:debug',
         'stylus', 'autoprefixer',
-        'browserify',
         'watch'
     ]);
 
-    grunt.registerTask('release', ['uglify', 'csso', 'assemble:release', 'pngmin', 'compress']);
+    grunt.registerTask('release', [
+        'browserify:release',
+        'uglify',
+        'assemble:release',
+        'csso',
+        'pngmin',
+        'compress'
+    ]);
 
 };
