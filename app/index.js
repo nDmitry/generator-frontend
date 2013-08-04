@@ -13,6 +13,8 @@ var FrontendGenerator = module.exports = function FrontendGenerator(arg, options
             skipInstall: options['skip-install']
         });
     });
+
+    this.bwr = JSON.parse(this.readFileAsString(path.join(__dirname, '/templates/bowerrc')));
 };
 
 util.inherits(FrontendGenerator, yeoman.generators.NamedBase);
@@ -43,13 +45,13 @@ FrontendGenerator.prototype.app = function app() {
     this.mkdir('src/img/sprites');
 
     // Copy config files
-    this.copy('gitignore', '.gitignore');
     this.copy('editorconfig', '.editorconfig');
     this.copy('jshintrc', '.jshintrc');
     this.copy('bowerrc', '.bowerrc');
     this.copy('Gruntfile.js', 'Gruntfile.js');
 
     // Compile templates
+    this.template('_gitignore', '.gitignore');
     this.template('_bower.json', 'bower.json');
     this.template('_package.json', 'package.json');
     this.template('_layout.hbs', 'src/layout.hbs');
