@@ -61,16 +61,9 @@ module.exports = function(grunt) {
                 jsAppName: '<%= jsAppName %>',
                 jsBundleName: '<%= jsBundleName %>'
             },
-            debug: {
+            dist: {
                 options: {
-                    debug: true
-                },
-                src: '<%= srcDir %>/<%= templatesDir %>/*.hbs',
-                dest: '<%= buildDir %>/'
-            },
-            release: {
-                options: {
-                    debug: false
+                    debug: grunt.option('debug')
                 },
                 src: '<%= srcDir %>/<%= templatesDir %>/*.hbs',
                 dest: '<%= buildDir %>/'
@@ -147,16 +140,11 @@ module.exports = function(grunt) {
 
         browserify: {
             options: {
-                debug: true,
                 ignore: '<%= bower.directory %>/**'
             },
-            debug: {
-                src: '<%= srcDir %>/<%= jsDir %>/**/*.js',
-                dest: '<%= buildDir %>/<%= jsDir %>/<%= jsAppName %>.js'
-            },
-            release: {
+            dist: {
                 options: {
-                    debug: false
+                    debug: grunt.option('debug')
                 },
                 src: '<%= srcDir %>/<%= jsDir %>/**/*.js',
                 dest: '<%= buildDir %>/<%= jsDir %>/<%= jsAppName %>.js'
@@ -226,7 +214,7 @@ module.exports = function(grunt) {
 
             hbs: {
                 files: ['<%= srcDir %>/**/*.hbs'],
-                tasks: ['assemble:debug']
+                tasks: ['assemble']
             },
 
             stylus: {
@@ -236,7 +224,7 @@ module.exports = function(grunt) {
 
             js: {
                 files: ['<%= srcDir %>/<%= jsDir %>/**/*.js'],
-                tasks: ['browserify:debug']
+                tasks: ['browserify']
             },
 
             jsVendor: {
@@ -262,16 +250,16 @@ module.exports = function(grunt) {
 
     grunt.registerTask('default', [
         'connect',
-        'concat:vendor', 'browserify:debug',
-        'assemble:debug',
+        'concat:vendor', 'browserify',
+        'assemble',
         'stylus', 'autoprefixer',
         'watch'
     ]);
 
     grunt.registerTask('release', [
-        'browserify:release',
+        'browserify',
         'uglify',
-        'assemble:release',
+        'assemble',
         'csso',
         'pngmin',
         'compress'
