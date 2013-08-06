@@ -27,7 +27,7 @@ describe('app generator', function() {
 
     it('creates expected files', function(done) {
         var expected = [
-            ['src/layout.hbs', /<title>Temp<\/title>/],
+            ['src/layout.hbs', /<title>Temp<\/title>/, /lang="ru"/],
             'src/includes/header.hbs',
             'src/includes/footer.hbs',
             'src/includes/scripts.hbs',
@@ -42,7 +42,8 @@ describe('app generator', function() {
         ];
 
         helpers.mockPrompt(this.app, {
-            projectName: 'temp'
+            projectName: 'temp',
+            lang: 'ru'
         });
 
         this.app.run({}, function() {

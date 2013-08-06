@@ -8,7 +8,7 @@ var path = require('path'),
 var FrontendGenerator = module.exports = function FrontendGenerator(arg, options) {
     yeoman.generators.Base.apply(this, arguments);
 
-    this.on('end', function () {
+    this.on('end', function() {
         this.installDependencies({
             skipInstall: options['skip-install']
         });
@@ -26,10 +26,15 @@ FrontendGenerator.prototype.askFor = function askFor() {
         name: 'projectName',
         message: 'Project Name',
         default: path.basename(process.cwd())
+    }, {
+        name: 'lang',
+        message: 'Project Language',
+        default: 'ru'
     }];
 
     this.prompt(prompts, function(props) {
         this.projectName = props.projectName;
+        this.lang = props.lang;
         cb();
     }.bind(this));
 };
