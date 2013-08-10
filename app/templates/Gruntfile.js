@@ -1,10 +1,12 @@
+// Generated on <%= (new Date).toISOString().split('T')[0] %> using <%= pkg.name %> <%= pkg.version %>
+
 module.exports = function(grunt) {
 
     'use strict';
 
     grunt.initConfig({
 
-        banner: '/*! <%= grunt.template.today("yyyy-mm-dd, h:MM:ss TT") %> */\n',
+        banner: '/*! <%%= grunt.template.today("yyyy-mm-dd, h:MM:ss TT") %> */\n',
         bower: grunt.file.readJSON('.bowerrc'),
 
         srcDir: 'src',
@@ -16,9 +18,10 @@ module.exports = function(grunt) {
         stylusDir: 'stylus',
         cssDir: 'css',
         imgDir: 'img',
-        fontsDir: 'fonts',
+        fontsDir: 'fonts',<% if (!angular) { %>
         includesDir: 'includes',
-        templatesDir: 'templates',
+        templatesDir: 'templates',<% } else { %>
+        viewsDir: 'views',<% } %>
 
         connect: {
             server: {
@@ -38,46 +41,53 @@ module.exports = function(grunt) {
         copy: {
             img: {
                 expand: true,
-                cwd: '<%= srcDir %>/<%= imgDir %>/',
+                cwd: '<%%= srcDir %>/<%%= imgDir %>/',
                 src: ['{,*/}*'],
-                dest: '<%= buildDir %>/<%= imgDir %>/'
+                dest: '<%%= buildDir %>/<%%= imgDir %>/'
             },
 
             fonts: {
                 expand: true,
-                cwd: '<%= srcDir %>/<%= fontsDir %>/',
+                cwd: '<%%= srcDir %>/<%%= fontsDir %>/',
                 src: ['{,*/}*'],
-                dest: '<%= buildDir %>/<%= fontsDir %>/'
-            }
-        },
+                dest: '<%%= buildDir %>/<%%= fontsDir %>/'
+            }<% if (angular) { %>,
+
+            views: {
+                expand: true,
+                cwd: '<%%= srcDir %>/',
+                src: ['index.html', '<%%= viewsDir %>/**'],
+                dest: '<%%= buildDir %>/'
+            }<% } %>
+        }<% if (!angular) { %>,
 
         assemble: {
             options: {
-                layoutdir: '<%= srcDir %>/',
+                layoutdir: '<%%= srcDir %>/',
                 layout: 'layout.hbs',
-                partials: ['<%= srcDir %>/<%= includesDir %>/*.hbs'],
+                partials: ['<%%= srcDir %>/<%%= includesDir %>/*.hbs'],
                 flatten: true,
-                jsVendorName: '<%= jsVendorName %>',
-                jsAppName: '<%= jsAppName %>',
-                jsBundleName: '<%= jsBundleName %>'
+                jsVendorName: '<%%= jsVendorName %>',
+                jsAppName: '<%%= jsAppName %>',
+                jsBundleName: '<%%= jsBundleName %>'
             },
             dist: {
                 options: {
                     debug: grunt.option('debug')
                 },
-                src: '<%= srcDir %>/<%= templatesDir %>/*.hbs',
-                dest: '<%= buildDir %>/'
+                src: '<%%= srcDir %>/<%%= templatesDir %>/*.hbs',
+                dest: '<%%= buildDir %>/'
             }
-        },
+        }<% } %>,
 
         stylus: {
             dist: {
                 options: {
                     compress: false,
-                    banner: '<%= banner %>'
+                    banner: '<%%= banner %>'
                 },
                 files: {
-                    '<%= buildDir %>/<%= cssDir %>/main.css': '<%= srcDir %>/<%= stylusDir %>/index.styl'
+                    '<%%= buildDir %>/<%%= cssDir %>/main.css': '<%%= srcDir %>/<%%= stylusDir %>/index.styl'
                 }
             }
         },
@@ -87,8 +97,8 @@ module.exports = function(grunt) {
                 browsers: ['last 2 versions', 'ie 8', 'ie 9', 'ie 10']
             },
             dist: {
-                src: '<%= buildDir %>/<%= cssDir %>/main.css',
-                dest: '<%= buildDir %>/<%= cssDir %>/main.css'
+                src: '<%%= buildDir %>/<%%= cssDir %>/main.css',
+                dest: '<%%= buildDir %>/<%%= cssDir %>/main.css'
             }
         },
 
@@ -107,10 +117,11 @@ module.exports = function(grunt) {
                 'text-indent': false,
                 'unique-headings': false,
                 'universal-selector': false,
-                'unqualified-attributes': false
+                'unqualified-attributes': false,
+                'known-properties': false
             },
             dist: {
-                src: '<%= buildDir %>/<%= cssDir %>/main.css'
+                src: '<%%= buildDir %>/<%%= cssDir %>/main.css'
             }
         },
 
@@ -119,58 +130,59 @@ module.exports = function(grunt) {
                 report: 'min'
             },
             dist: {
-                src: '<%= buildDir %>/<%= cssDir %>/main.css',
-                dest: '<%= buildDir %>/<%= cssDir %>/main.min.css'
+                src: '<%%= buildDir %>/<%%= cssDir %>/main.css',
+                dest: '<%%= buildDir %>/<%%= cssDir %>/main.min.css'
             }
         },
 
         concat: {
             vendor: {
-                src: [
-                    '<%= bower.directory %>/jquery/jquery.js',
-                    '<%= bower.directory %>/bpopup/jquery.bpopup.js',
-                    '<%= bower.directory %>/flexslider/jquery.flexslider.js',
-                    '<%= bower.directory %>/herotabs/dist/jquery.herotabs.js',
-                    '<%= bower.directory %>/powertip/jquery.powertip.js',
+                src: [<% if (angular) { %>
+                    '<%%= bower.directory %>/angular/angular.js',<% } %><% if (jquery) { %>
+                    '<%%= bower.directory %>/jquery/jquery.js',<% } %><% if (bpopup) { %>
+                    '<%%= bower.directory %>/bpopup/jquery.bpopup.js',<% } %><% if (flexslider) { %>
+                    '<%%= bower.directory %>/flexslider/jquery.flexslider.js',<% } %><% if (herotabs) { %>
+                    '<%%= bower.directory %>/herotabs/dist/jquery.herotabs.js',<% } %><% if (powertip) { %>
+                    '<%%= bower.directory %>/powertip/jquery.powertip.js',<% } %>
                     // More components here
                 ],
-                dest: '<%= buildDir %>/<%= jsDir %>/<%= jsVendorName %>.js'
-            },
+                dest: '<%%= buildDir %>/<%%= jsDir %>/<%%= jsVendorName %>.js'
+            }
         },
 
         browserify: {
             options: {
-                ignore: '<%= bower.directory %>/'
+                ignore: '<%%= bower.directory %>/'
             },
             dist: {
                 options: {
                     debug: grunt.option('debug')
                 },
-                src: '<%= srcDir %>/<%= jsDir %>/{,*/}*.js',
-                dest: '<%= buildDir %>/<%= jsDir %>/<%= jsAppName %>.js'
+                src: '<%%= srcDir %>/<%%= jsDir %>/{,*/}*.js',
+                dest: '<%%= buildDir %>/<%%= jsDir %>/<%%= jsAppName %>.js'
             }
         },
 
         uglify: {
             options: {
                 report: 'min',
-                banner: '<%= banner %>'
+                banner: '<%%= banner %>'
             },
             dist: {
                 src: [
-                    '<%= buildDir %>/<%= jsDir %>/<%= jsVendorName %>.js',
-                    '<%= buildDir %>/<%= jsDir %>/<%= jsAppName %>.js'
+                    '<%%= buildDir %>/<%%= jsDir %>/<%%= jsVendorName %>.js',
+                    '<%%= buildDir %>/<%%= jsDir %>/<%%= jsAppName %>.js'
                 ],
-                dest: '<%= buildDir %>/<%= jsDir %>/<%= jsBundleName %>.min.js'
+                dest: '<%%= buildDir %>/<%%= jsDir %>/<%%= jsBundleName %>.min.js'
             }
         },
 
         sprite: {
             dist: {
-                src: ['<%= srcDir %>/<%= imgDir %>/sprites/*.png'],
-                destImg: '<%= buildDir %>/<%= imgDir %>/sprite.png',
-                destCSS: '<%= srcDir %>/<%= stylusDir %>/partials/sprites.styl',
-                imgPath: '../<%= imgDir %>/sprite.png',
+                src: ['<%%= srcDir %>/<%%= imgDir %>/sprites/*.png'],
+                destImg: '<%%= buildDir %>/<%%= imgDir %>/sprite.png',
+                destCSS: '<%%= srcDir %>/<%%= stylusDir %>/partials/sprites.styl',
+                imgPath: '../<%%= imgDir %>/sprite.png',
                 algorithm: 'binary-tree',
                 padding: 5
             }
@@ -185,9 +197,9 @@ module.exports = function(grunt) {
                 },
                 files: [{
                     expand: true,
-                    cwd: '<%= buildDir %>/<%= imgDir %>/',
+                    cwd: '<%%= buildDir %>/<%%= imgDir %>/',
                     src: ['{,*/}*.png'],
-                    dest: '<%= buildDir %>/<%= imgDir %>/'
+                    dest: '<%%= buildDir %>/<%%= imgDir %>/'
                 }]
             }
         },
@@ -196,56 +208,62 @@ module.exports = function(grunt) {
 
             options: {
                 livereload: true
-            },
+            },<% if (angular) { %>
+
+            views: {
+                files: ['<%%= srcDir %>/{,*/}*.html'],
+                tasks: ['copy:views']
+            },<% } else { %>
 
             hbs: {
-                files: ['<%= srcDir %>/{,*/}*.hbs'],
+                files: ['<%%= srcDir %>/{,*/}*.hbs'],
                 tasks: ['assemble']
-            },
+            },<% } %>
 
             stylus: {
-                files: ['<%= srcDir %>/<%= stylusDir %>/{,*/}*.styl'],
+                files: ['<%%= srcDir %>/<%%= stylusDir %>/{,*/}*.styl'],
                 tasks: ['stylus', 'autoprefixer', 'csslint']
             },
 
             js: {
-                files: ['<%= srcDir %>/<%= jsDir %>/{,*/}*', '!<%= bower.directory %>/{,*/}*'],
+                files: ['<%%= srcDir %>/<%%= jsDir %>/{,*/}*', '!<%%= bower.directory %>/{,*/}*'],
                 tasks: ['browserify']
             },
 
             jsVendor: {
-                files: ['<%= bower.directory %>/{,*/}*.js'],
+                files: ['<%%= bower.directory %>/{,*/}*.js'],
                 tasks: ['concat:vendor']
             },
 
             img: {
-                files: ['<%= srcDir %>/<%= imgDir %>/{,*/}*'],
+                files: ['<%%= srcDir %>/<%%= imgDir %>/{,*/}*'],
                 tasks: ['copy:img', 'sprite']
             },
 
             fonts: {
-                files: ['<%= srcDir %>/<%= fontsDir %>/{,*/}*'],
+                files: ['<%%= srcDir %>/<%%= fontsDir %>/{,*/}*'],
                 tasks: ['copy:fonts']
             }
         }
 
     });
 
-    require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
-    grunt.loadNpmTasks('assemble');
+    require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);<% if (!angular) { %>
+    grunt.loadNpmTasks('assemble');<% } %>
 
     grunt.registerTask('default', [
         'connect',
-        'concat:vendor', 'browserify',
-        'assemble',
+        'concat:vendor', 'browserify',<% if (angular) { %>
+        'copy:views'<% } else { %>
+        'assemble',<% } %>
         'stylus', 'autoprefixer',
         'watch'
     ]);
 
     grunt.registerTask('release', [
         'browserify',
-        'uglify',
-        'assemble',
+        'uglify',<% if (!angular) { %>
+        'assemble',<% } %>
         'csso',
         'pngmin'
     ]);

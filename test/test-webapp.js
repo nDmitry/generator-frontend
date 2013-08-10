@@ -1,4 +1,4 @@
-/*global describe, beforeEach, it*/
+/* global describe, beforeEach, it */
 
 'use strict';
 
@@ -6,7 +6,7 @@ var path = require('path');
 var helpers = require('yeoman-generator').test;
 
 
-describe('app generator', function() {
+describe('app generator (angular: false)', function() {
     this.timeout(10000);
 
     beforeEach(function(done) {
@@ -38,12 +38,18 @@ describe('app generator', function() {
             '.bowerrc',
             ['bower.json', /"name": "temp"/],
             ['package.json', /"name": "temp"/],
-            'Gruntfile.js'
+            ['Gruntfile.js', /assemble/]
         ];
 
         helpers.mockPrompt(this.app, {
             projectName: 'temp',
-            lang: 'ru'
+            lang: 'ru',
+            angular: false,
+            jquery: true,
+            flexslider: true,
+            herotabs: true,
+            powertip: true,
+            bpopup: true
         });
 
         this.app.run({}, function() {

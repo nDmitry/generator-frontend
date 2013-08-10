@@ -2,8 +2,8 @@
   "name": "<%= _.slugify(projectName) %>",
   "version": "0.1.0",
   "private": true,
-  "devDependencies": {
-    "assemble": "~0.4",
+  "devDependencies": {<% if (!angular) { %>
+    "assemble": "~0.4",<% } %>
     "connect-livereload": "~0.2",
     "matchdep": "~0.1",
     "grunt": "~0.4.1",
