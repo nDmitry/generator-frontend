@@ -39,14 +39,14 @@ module.exports = function(grunt) {
             img: {
                 expand: true,
                 cwd: '<%= srcDir %>/<%= imgDir %>/',
-                src: ['**'],
+                src: ['{,*/}*'],
                 dest: '<%= buildDir %>/<%= imgDir %>/'
             },
 
             fonts: {
                 expand: true,
                 cwd: '<%= srcDir %>/<%= fontsDir %>/',
-                src: ['**'],
+                src: ['{,*/}*'],
                 dest: '<%= buildDir %>/<%= fontsDir %>/'
             }
         },
@@ -140,13 +140,13 @@ module.exports = function(grunt) {
 
         browserify: {
             options: {
-                ignore: '<%= bower.directory %>/**'
+                ignore: '<%= bower.directory %>/'
             },
             dist: {
                 options: {
                     debug: grunt.option('debug')
                 },
-                src: '<%= srcDir %>/<%= jsDir %>/**/*.js',
+                src: '<%= srcDir %>/<%= jsDir %>/{,*/}*.js',
                 dest: '<%= buildDir %>/<%= jsDir %>/<%= jsAppName %>.js'
             }
         },
@@ -186,7 +186,7 @@ module.exports = function(grunt) {
                 files: [{
                     expand: true,
                     cwd: '<%= buildDir %>/<%= imgDir %>/',
-                    src: ['**/*.png'],
+                    src: ['{,*/}*.png'],
                     dest: '<%= buildDir %>/<%= imgDir %>/'
                 }]
             }
@@ -199,32 +199,32 @@ module.exports = function(grunt) {
             },
 
             hbs: {
-                files: ['<%= srcDir %>/**/*.hbs'],
+                files: ['<%= srcDir %>/{,*/}*.hbs'],
                 tasks: ['assemble']
             },
 
             stylus: {
-                files: ['<%= srcDir %>/<%= stylusDir %>/**/*.styl'],
+                files: ['<%= srcDir %>/<%= stylusDir %>/{,*/}*.styl'],
                 tasks: ['stylus', 'autoprefixer', 'csslint']
             },
 
             js: {
-                files: ['<%= srcDir %>/<%= jsDir %>/**/*', '!<%= bower.directory %>/**/*'],
+                files: ['<%= srcDir %>/<%= jsDir %>/{,*/}*', '!<%= bower.directory %>/{,*/}*'],
                 tasks: ['browserify']
             },
 
             jsVendor: {
-                files: ['<%= bower.directory %>/**/*.js'],
+                files: ['<%= bower.directory %>/{,*/}*.js'],
                 tasks: ['concat:vendor']
             },
 
             img: {
-                files: ['<%= srcDir %>/<%= imgDir %>/**'],
+                files: ['<%= srcDir %>/<%= imgDir %>/{,*/}*'],
                 tasks: ['copy:img', 'sprite']
             },
 
             fonts: {
-                files: ['<%= srcDir %>/<%= fontsDir %>/**'],
+                files: ['<%= srcDir %>/<%= fontsDir %>/{,*/}*'],
                 tasks: ['copy:fonts']
             }
         }
