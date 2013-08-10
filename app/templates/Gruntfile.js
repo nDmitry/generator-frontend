@@ -192,20 +192,6 @@ module.exports = function(grunt) {
             }
         },
 
-        // Compress `out` directory
-        compress: {
-            main: {
-                options: {
-                    mode: 'zip',
-                    archive: '<%= buildDir %>.zip'
-                },
-                files: [{
-                    src: ['<%= buildDir %>/**'],
-                    dest: '/'
-                }]
-            }
-        },
-
         watch: {
 
             options: {
@@ -261,8 +247,7 @@ module.exports = function(grunt) {
         'uglify',
         'assemble',
         'csso',
-        'pngmin',
-        'compress'
+        'pngmin'
     ]);
 
 };
