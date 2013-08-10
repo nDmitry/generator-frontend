@@ -223,7 +223,7 @@ module.exports = function(grunt) {
             },
 
             js: {
-                files: ['<%= srcDir %>/<%= jsDir %>/**/*.js'],
+                files: ['<%= srcDir %>/<%= jsDir %>/**/*', '!<%= bower.directory %>/**/*'],
                 tasks: ['browserify']
             },
 
