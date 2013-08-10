@@ -32,33 +32,6 @@ FrontendGenerator.prototype.askFor = function askFor() {
         bpopup: '~0.9'
     };
 
-    var prompts = [
-        {
-            name: 'projectName',
-            message: 'Project Name',
-            default: path.basename(process.cwd())
-        },
-        {
-            name: 'lang',
-            message: 'Project Language',
-            default: 'ru'
-        },
-        {
-            type: 'confirm',
-            name: 'angular',
-            message: 'Is it AngularJS project?',
-            default: false
-        }
-    ];
-
-    var setVars = (function(props) {
-        for (var prop in props) {
-            if (props.hasOwnProperty(prop)) {
-                this[prop] = props[prop];
-            }
-        }
-    }.bind(this));
-
     function getDeps(props) {
         var d = {};
 
@@ -71,42 +44,40 @@ FrontendGenerator.prototype.askFor = function askFor() {
         return d;
     }
 
-    this.prompt(prompts, function(props) {
-        setVars(props);
-
-        if (this.angular) {
-
-            for (var dep in deps) {
-                if (deps.hasOwnProperty(dep) && dep !== 'angular') {
-                    this[dep] = false;
-                }
-            }
-
-            this.deps = JSON.stringify(getDeps(props));
-            cb();
-
-        } else {
-
-            prompts = [];
-
-            for (var dep in deps) {
-                if (deps.hasOwnProperty(dep) && dep !== 'angular') {
-                    prompts.push({
-                        type: 'confirm',
-                        name: dep,
-                        message: 'Include ' + dep + ' component?',
-                        default: true
-                    });
-                }
-            }
-
-            this.prompt(prompts, function(props) {
-                setVars(props);
-                this.deps = JSON.stringify(getDeps(props));
-                cb();
-            }.bind(this));
-
+    var prompts = [
+        {
+            name: 'projectName',
+            message: 'Project Name',
+            default: path.basename(process.cwd())
+        },
+        {
+            name: 'lang',
+            message: 'Project Language',
+            default: 'ru'
         }
+    ];
+
+    // Add prompt for each Bower component
+    for (var dep in deps) {
+        if (deps.hasOwnProperty(dep)) {
+            prompts.push({
+                type: 'confirm',
+                name: dep,
+                message: 'Include ' + dep + ' component?',
+                default: (dep === 'angular') ? true : false
+            });
+        }
+    }
+
+    this.prompt(prompts, function(props) {
+        for (var prop in props) {
+            if (props.hasOwnProperty(prop)) {
+                this[prop] = props[prop];
+            }
+        }
+
+        this.deps = JSON.stringify(getDeps(props));
+        cb();
     }.bind(this));
 
 };

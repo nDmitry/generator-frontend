@@ -41,7 +41,12 @@ describe('app generator (angular: true)', function() {
         helpers.mockPrompt(this.app, {
             projectName: 'temp',
             lang: 'ru',
-            angular: true
+            angular: true,
+            jquery: false,
+            flexslider: false,
+            herotabs: false,
+            powertip: false,
+            bpopup: false
         });
 
         this.app.run({}, function() {
