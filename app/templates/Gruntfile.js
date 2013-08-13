@@ -17,6 +17,7 @@ module.exports = function(grunt) {
         jsBundleName: 'bundle',
         stylusDir: 'stylus',
         cssDir: 'css',
+        cssName: 'main',
         imgDir: 'img',
         fontsDir: 'fonts',<% if (!angular) { %>
         includesDir: 'includes',
@@ -38,6 +39,14 @@ module.exports = function(grunt) {
             }
         },
 
+        clean: {
+            css: {src: '<%%= csso.dist.src %>'},
+            js: {src: '<%%= uglify.dist.src %>'},
+            img: {src: '<%%= copy.img.dest %>'},<% if (angular) { %>
+            views: {src: '<%%= buildDir %>/<%%= viewsDir %>/'},<% } %>
+            fonts: {src: '<%%= copy.fonts.dest %>'}
+        },
+
         copy: {
             img: {
                 expand: true,
@@ -56,7 +65,7 @@ module.exports = function(grunt) {
             views: {
                 expand: true,
                 cwd: '<%%= srcDir %>/',
-                src: ['index.html', '<%%= viewsDir %>/**'],
+                src: ['index.html', '<%%= viewsDir %>/{,*/}*'],
                 dest: '<%%= buildDir %>/'
             }<% } %>
         }<% if (!angular) { %>,
@@ -87,7 +96,7 @@ module.exports = function(grunt) {
                     banner: '<%%= banner %>'
                 },
                 files: {
-                    '<%%= buildDir %>/<%%= cssDir %>/main.css': '<%%= srcDir %>/<%%= stylusDir %>/index.styl'
+                    '<%%= buildDir %>/<%%= cssDir %>/<%%= cssName %>.css': '<%%= srcDir %>/<%%= stylusDir %>/index.styl'
                 }
             }
         },
@@ -97,8 +106,8 @@ module.exports = function(grunt) {
                 browsers: ['last 2 versions', 'ie 8', 'ie 9', 'ie 10']
             },
             dist: {
-                src: '<%%= buildDir %>/<%%= cssDir %>/main.css',
-                dest: '<%%= buildDir %>/<%%= cssDir %>/main.css'
+                src: '<%%= buildDir %>/<%%= cssDir %>/<%%= cssName %>.css',
+                dest: '<%%= buildDir %>/<%%= cssDir %>/<%%= cssName %>.css'
             }
         },
 
@@ -121,7 +130,7 @@ module.exports = function(grunt) {
                 'known-properties': false
             },
             dist: {
-                src: '<%%= buildDir %>/<%%= cssDir %>/main.css'
+                src: '<%%= buildDir %>/<%%= cssDir %>/<%%= cssName %>.css'
             }
         },
 
@@ -130,8 +139,8 @@ module.exports = function(grunt) {
                 report: 'min'
             },
             dist: {
-                src: '<%%= buildDir %>/<%%= cssDir %>/main.css',
-                dest: '<%%= buildDir %>/<%%= cssDir %>/main.min.css'
+                src: '<%%= buildDir %>/<%%= cssDir %>/<%%= cssName %>.css',
+                dest: '<%%= buildDir %>/<%%= cssDir %>/<%%= cssName %>.min.css'
             }
         },
 
@@ -166,7 +175,8 @@ module.exports = function(grunt) {
         uglify: {
             options: {
                 report: 'min',
-                banner: '<%%= banner %>'
+                banner: '<%%= banner %>'<% if (angular) { %>,
+                mangle: false<% } %>
             },
             dist: {
                 src: [
@@ -175,11 +185,15 @@ module.exports = function(grunt) {
                 ],
                 dest: '<%%= buildDir %>/<%%= jsDir %>/<%%= jsBundleName %>.min.js'
             }
-        },
+        },<% if (angular) { %>
+
+        usemin: {
+            html: '<%%= buildDir %>/index.html'
+        },<% } %>
 
         sprite: {
             dist: {
-                src: ['<%%= srcDir %>/<%%= imgDir %>/sprites/*.png'],
+                src: ['<%%= srcDir %>/<%%= imgDir %>/sprites/*'],
                 destImg: '<%%= buildDir %>/<%%= imgDir %>/sprite.png',
                 destCSS: '<%%= srcDir %>/<%%= stylusDir %>/partials/sprites.styl',
                 imgPath: '../<%%= imgDir %>/sprite.png',
@@ -212,7 +226,7 @@ module.exports = function(grunt) {
 
             views: {
                 files: ['<%%= srcDir %>/{,*/}*.html'],
-                tasks: ['copy:views']
+                tasks: ['clean:views', 'copy:views']
             },<% } else { %>
 
             hbs: {
@@ -237,12 +251,12 @@ module.exports = function(grunt) {
 
             img: {
                 files: ['<%%= srcDir %>/<%%= imgDir %>/{,*/}*'],
-                tasks: ['copy:img', 'sprite']
+                tasks: ['clean:img', 'copy:img', 'sprite']
             },
 
             fonts: {
                 files: ['<%%= srcDir %>/<%%= fontsDir %>/{,*/}*'],
-                tasks: ['copy:fonts']
+                tasks: ['clean:fonts', 'copy:fonts']
             }
         }
 
@@ -254,7 +268,7 @@ module.exports = function(grunt) {
     grunt.registerTask('default', [
         'connect',
         'concat:vendor', 'browserify',<% if (angular) { %>
-        'copy:views'<% } else { %>
+        'clean:views', 'copy:views',<% } else { %>
         'assemble',<% } %>
         'stylus', 'autoprefixer',
         'watch'
@@ -264,7 +278,9 @@ module.exports = function(grunt) {
         'browserify',
         'uglify',<% if (!angular) { %>
         'assemble',<% } %>
-        'csso',
+        'csso',<% if (angular) { %>
+        'usemin',
+        'clean:css', 'clean:js',<% } %>
         'pngmin'
     ]);
 
