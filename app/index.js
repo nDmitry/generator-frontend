@@ -64,7 +64,7 @@ FrontendGenerator.prototype.askFor = function askFor() {
                 type: 'confirm',
                 name: dep,
                 message: 'Include ' + dep + ' component?',
-                default: (dep === 'angular') ? true : false
+                default: (dep === 'angular')
             });
         }
     }
