@@ -82,9 +82,7 @@ FrontendGenerator.prototype.askFor = function askFor() {
 
 };
 
-FrontendGenerator.prototype.app = function app() {
-    this.log.info('Creating front-end scaffolding...');
-
+FrontendGenerator.prototype.common = function() {
     this.mkdir('src/fonts');
     this.mkdir('src/img/sprites');
 
@@ -96,16 +94,19 @@ FrontendGenerator.prototype.app = function app() {
     this.template('_bower.json', 'bower.json');
     this.template('_package.json', 'package.json');
     this.template('Gruntfile.js', 'Gruntfile.js');
+};
 
+FrontendGenerator.prototype.app = function app() {
     if (this.angular) {
-        this.directory('angular/', 'src/');
-        this.template('_index.html', 'src/index.html');
+        this.directory('scaffoldings/spa/', 'src/');
+        this.template('scaffoldings/_index.html', 'src/index.html');
+
         this.mkdir('src/views');
         this.mkdir('src/js/directives');
         this.mkdir('src/js/controllers');
         this.mkdir('src/js/services');
     } else {
-        this.directory('webapp/', 'src/');
-        this.template('_layout.hbs', 'src/layout.hbs');
+        this.directory('scaffoldings/classic/', 'src/');
+        this.template('scaffoldings/_layout.hbs', 'src/layout.hbs');
     }
 };
