@@ -17,7 +17,7 @@ The subgenerator scaffolds out some starting files (e.g. empty `app.js`, Handleb
 List of what my Grunt config can make for you:
 * Local Connect web-server
 * Live reload
-* Compiling Handlebars templates to HTML
+* Compiling EJS templates to HTML
 * Compiling Stylus
 * Prefixing your output CSS with Autoprefixer
 * Spriting with output to sprites.styl file
@@ -26,7 +26,6 @@ List of what my Grunt config can make for you:
 * Handling Bower components
 * CSS and JS minification
 * Image optimization
-* Zipping build directory
 
 ### Stylus subgenerator
 This subgenerator just fetches my small Stylus [library](https://github.com/nDmitry/stylus) and copies it to `src/stylus` directory.
