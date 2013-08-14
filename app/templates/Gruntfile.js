@@ -218,11 +218,7 @@ module.exports = function(grunt) {
             }
         },
 
-        watch: {
-
-            options: {
-                livereload: true
-            },<% if (angular) { %>
+        watch: {<% if (angular) { %>
 
             views: {
                 files: ['<%%= srcDir %>/{,*/}*.html'],
@@ -257,6 +253,13 @@ module.exports = function(grunt) {
             fonts: {
                 files: ['<%%= srcDir %>/<%%= fontsDir %>/{,*/}*'],
                 tasks: ['clean:fonts', 'copy:fonts']
+            },
+
+            livereload: {
+                options: {
+                    livereload: true
+                },
+                files: ['<%%= buildDir %>/**/*']
             }
         }
 
