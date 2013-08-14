@@ -19,10 +19,8 @@ module.exports = function(grunt) {
         cssDir: 'css',
         cssName: 'main',
         imgDir: 'img',
-        fontsDir: 'fonts',<% if (!angular) { %>
-        includesDir: 'includes',
-        templatesDir: 'templates',<% } else { %>
-        viewsDir: 'views',<% } %>
+        fontsDir: 'fonts',
+        pagesDir: 'pages',
 
         connect: {
             server: {
@@ -42,8 +40,7 @@ module.exports = function(grunt) {
         clean: {
             css: {src: '<%%= csso.dist.src %>'},
             js: {src: '<%%= uglify.dist.src %>'},
-            img: {src: '<%%= copy.img.dest %>'},<% if (angular) { %>
-            views: {src: '<%%= buildDir %>/<%%= viewsDir %>/'},<% } %>
+            img: {src: '<%%= copy.img.dest %>'},
             fonts: {src: '<%%= copy.fonts.dest %>'}
         },
 
@@ -60,34 +57,24 @@ module.exports = function(grunt) {
                 cwd: '<%%= srcDir %>/<%%= fontsDir %>/',
                 src: ['{,*/}*'],
                 dest: '<%%= buildDir %>/<%%= fontsDir %>/'
-            }<% if (angular) { %>,
+            }
+        },
 
-            views: {
-                expand: true,
-                cwd: '<%%= srcDir %>/',
-                src: ['index.html', '<%%= viewsDir %>/{,*/}*'],
-                dest: '<%%= buildDir %>/'
-            }<% } %>
-        }<% if (!angular) { %>,
-
-        assemble: {
+        ejs: {
             options: {
-                layoutdir: '<%%= srcDir %>/',
-                layout: 'layout.hbs',
-                partials: ['<%%= srcDir %>/<%%= includesDir %>/*.hbs'],
-                flatten: true,
+                dev: grunt.option('debug'),
                 jsVendorName: '<%%= jsVendorName %>',
                 jsAppName: '<%%= jsAppName %>',
                 jsBundleName: '<%%= jsBundleName %>'
             },
             dist: {
-                options: {
-                    debug: grunt.option('debug')
-                },
-                src: '<%%= srcDir %>/<%%= templatesDir %>/*.hbs',
+                expand: true,
+                ext: '.html',
+                flatten: true,
+                src: ['<%%= srcDir %>/<%%= pagesDir %>/*.ejs'],
                 dest: '<%%= buildDir %>/'
             }
-        }<% } %>,
+        },
 
         stylus: {
             dist: {
@@ -146,13 +133,12 @@ module.exports = function(grunt) {
 
         concat: {
             vendor: {
-                src: [<% if (angular) { %>
-                    '<%%= bower.directory %>/angular/angular.js',<% } %><% if (jquery) { %>
-                    '<%%= bower.directory %>/jquery/jquery.js',<% } %><% if (bpopup) { %>
-                    '<%%= bower.directory %>/bpopup/jquery.bpopup.js',<% } %><% if (flexslider) { %>
-                    '<%%= bower.directory %>/flexslider/jquery.flexslider.js',<% } %><% if (herotabs) { %>
-                    '<%%= bower.directory %>/herotabs/dist/jquery.herotabs.js',<% } %><% if (powertip) { %>
-                    '<%%= bower.directory %>/powertip/jquery.powertip.js',<% } %>
+                src: [
+                    '<%%= bower.directory %>/jquery/jquery.js',
+                    // '<%%= bower.directory %>/bpopup/jquery.bpopup.js',
+                    // '<%%= bower.directory %>/flexslider/jquery.flexslider.js',
+                    // '<%%= bower.directory %>/herotabs/dist/jquery.herotabs.js',
+                    // '<%%= bower.directory %>/powertip/jquery.powertip.js',
                     // More components here
                 ],
                 dest: '<%%= buildDir %>/<%%= jsDir %>/<%%= jsVendorName %>.js'
@@ -175,8 +161,7 @@ module.exports = function(grunt) {
         uglify: {
             options: {
                 report: 'min',
-                banner: '<%%= banner %>'<% if (angular) { %>,
-                mangle: false<% } %>
+                banner: '<%%= banner %>'
             },
             dist: {
                 src: [
@@ -185,11 +170,7 @@ module.exports = function(grunt) {
                 ],
                 dest: '<%%= buildDir %>/<%%= jsDir %>/<%%= jsBundleName %>.min.js'
             }
-        },<% if (angular) { %>
-
-        usemin: {
-            html: '<%%= buildDir %>/index.html'
-        },<% } %>
+        },
 
         sprite: {
             dist: {
@@ -209,26 +190,19 @@ module.exports = function(grunt) {
                     ext: '.png',
                     force: true
                 },
-                files: [{
-                    expand: true,
-                    cwd: '<%%= buildDir %>/<%%= imgDir %>/',
-                    src: ['{,*/}*.png'],
-                    dest: '<%%= buildDir %>/<%%= imgDir %>/'
-                }]
+                expand: true,
+                cwd: '<%%= buildDir %>/<%%= imgDir %>/',
+                src: ['{,*/}*.png'],
+                dest: '<%%= buildDir %>/<%%= imgDir %>/'
             }
         },
 
-        watch: {<% if (angular) { %>
+        watch: {
 
-            views: {
-                files: ['<%%= srcDir %>/{,*/}*.html'],
-                tasks: ['clean:views', 'copy:views']
-            },<% } else { %>
-
-            hbs: {
-                files: ['<%%= srcDir %>/{,*/}*.hbs'],
-                tasks: ['assemble']
-            },<% } %>
+            ejs: {
+                files: ['<%%= srcDir %>/**/*.ejs'],
+                tasks: ['ejs']
+            },
 
             stylus: {
                 files: ['<%%= srcDir %>/<%%= stylusDir %>/{,*/}*.styl'],
@@ -240,7 +214,7 @@ module.exports = function(grunt) {
                 tasks: ['browserify']
             },
 
-            jsVendor: {
+            vendor: {
                 files: ['<%%= bower.directory %>/{,*/}*.js'],
                 tasks: ['concat:vendor']
             },
@@ -265,25 +239,23 @@ module.exports = function(grunt) {
 
     });
 
-    require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);<% if (!angular) { %>
-    grunt.loadNpmTasks('assemble');<% } %>
+    require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
     grunt.registerTask('default', [
         'connect',
-        'concat:vendor', 'browserify',<% if (angular) { %>
-        'clean:views', 'copy:views',<% } else { %>
-        'assemble',<% } %>
+        'copy',
+        'concat:vendor', 'browserify',
+        'ejs',
         'stylus', 'autoprefixer',
         'watch'
     ]);
 
     grunt.registerTask('release', [
         'browserify',
-        'uglify',<% if (!angular) { %>
-        'assemble',<% } %>
-        'csso',<% if (angular) { %>
-        'usemin',
-        'clean:css', 'clean:js',<% } %>
+        'uglify',
+        'ejs',
+        'csso',
+        'clean:css', 'clean:js',
         'pngmin'
     ]);
 

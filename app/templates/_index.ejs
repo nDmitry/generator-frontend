@@ -6,16 +6,24 @@
     <meta charset="UTF-8">
     <title><%= _.capitalize(projectName) %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/main{{#unless debug}}.min{{/unless}}.css">
+    <link rel="stylesheet" href="css/main<%% if (!dev) { %>.min<%% } %>.css">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 </head>
 <body>
 
-    {{> body}}
+    <%% include partials/header -%>
 
-    {{> scripts}}
+    <main role="main">
+
+
+
+    </main>
+
+    <%% include partials/footer -%>
+
+    <%% include partials/scripts -%>
 
 </body>
 </html>

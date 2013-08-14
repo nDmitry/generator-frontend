@@ -1,4 +1,4 @@
-/*global describe, beforeEach, it*/
+/* global describe, beforeEach, it */
 
 'use strict';
 
@@ -6,7 +6,7 @@ var path = require('path');
 var helpers = require('yeoman-generator').test;
 
 
-describe('app generator (angular: true)', function() {
+describe('app generator', function() {
     this.timeout(10000);
 
     beforeEach(function(done) {
@@ -27,7 +27,10 @@ describe('app generator (angular: true)', function() {
 
     it('creates expected files', function(done) {
         var expected = [
-            ['src/index.html', /<title>Temp<\/title>/, /lang="ru"/],
+            ['src/pages/index.ejs', /<title>Temp<\/title>/, /lang="ru"/],
+            'src/pages/partials/header.ejs',
+            'src/pages/partials/footer.ejs',
+            'src/pages/partials/scripts.ejs',
             'src/js/app.js',
             ['.gitignore', /src\/js/],
             '.editorconfig',
@@ -35,18 +38,12 @@ describe('app generator (angular: true)', function() {
             '.bowerrc',
             ['bower.json', /"name": "temp"/],
             ['package.json', /"name": "temp"/],
-            ['Gruntfile.js', /copy:views/]
+            'Gruntfile.js'
         ];
 
         helpers.mockPrompt(this.app, {
             projectName: 'temp',
-            lang: 'ru',
-            angular: true,
-            jquery: false,
-            flexslider: false,
-            herotabs: false,
-            powertip: false,
-            bpopup: false
+            lang: 'ru'
         });
 
         this.app.run({}, function() {

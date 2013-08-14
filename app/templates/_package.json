@@ -2,13 +2,13 @@
   "name": "<%= _.slugify(projectName) %>",
   "version": "0.1.0",
   "private": true,
-  "devDependencies": {<% if (!angular) { %>
-    "assemble": "~0.4",<% } %>
+  "devDependencies": {
     "connect-livereload": "~0.2",
     "matchdep": "~0.1",
     "grunt": "~0.4.1",
     "grunt-autoprefixer": "~0.2",
     "grunt-browserify": "~1.2",
+    "grunt-ejs": "~0.1",
     "grunt-contrib-clean": "~0.5",
     "grunt-contrib-concat": "~0.3",
     "grunt-contrib-connect": "~0.3",
@@ -19,7 +19,6 @@
     "grunt-contrib-watch": "~0.5",
     "grunt-csso": "~0.5",
     "grunt-pngmin": "~0.6",
-    "grunt-spritesmith": "~1.7"<% if (angular) { %>,
-    "grunt-usemin": "~0.1"<% } %>
+    "grunt-spritesmith": "~1.7"
   }
 }

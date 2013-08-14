@@ -1,5 +1,7 @@
 {
   "name": "<%= _.slugify(projectName) %>",
   "private": true,
-  "dependencies": <%= deps %>
+  "dependencies": {
+      "jquery": "~1.10"
+  }
 }
