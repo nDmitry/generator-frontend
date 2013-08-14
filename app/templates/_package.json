@@ -19,7 +19,7 @@
     "grunt-contrib-watch": "~0.5",
     "grunt-csso": "~0.5",
     "grunt-pngmin": "~0.6",
-    "grunt-spritesmith": "~1.5.2"<% if (angular) { %>,
+    "grunt-spritesmith": "~1.7"<% if (angular) { %>,
     "grunt-usemin": "~0.1"<% } %>
   }
 }
