@@ -19,6 +19,7 @@
     "grunt-csso": "~0.5",
     "grunt-pngmin": "~0.6",
     "grunt-spritesmith": "~1.7",
-    "load-grunt-tasks": "~0.1"
+    "load-grunt-tasks": "~0.1",
+    "time-grunt": "~0.1"
   }
 }
