@@ -4,6 +4,8 @@ module.exports = function(grunt) {
 
     'use strict';
 
+    require('load-grunt-tasks')(grunt);
+
     grunt.initConfig({
 
         banner: '/*! <%%= grunt.template.today("yyyy-mm-dd, h:MM:ss TT") %> */\n',
@@ -238,8 +240,6 @@ module.exports = function(grunt) {
         }
 
     });
-
-    require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
     grunt.registerTask('default', [
         'connect',
