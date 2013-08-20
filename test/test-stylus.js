@@ -28,7 +28,10 @@ describe('stylus generator', function() {
     it('creates expected files', function(done) {
         var expected = [
             'src/stylus/index.styl',
-            'src/stylus/lib/mixins.styl'
+            'src/stylus/lib/index.styl',
+            'src/stylus/lib/base/index.styl',
+            'src/stylus/lib/mixins/index.styl',
+            'src/stylus/lib/functions/index.styl'
         ];
 
         helpers.mockPrompt(this.app, {
