@@ -5,7 +5,7 @@ var path = require('path'),
     yeoman = require('yeoman-generator');
 
 
-var FrontendGenerator = module.exports = function FrontendGenerator(arg, options) {
+var AppGenerator = module.exports = function AppGenerator(arg, options) {
     yeoman.generators.Base.apply(this, arguments);
 
     this.on('end', function() {
@@ -18,9 +18,9 @@ var FrontendGenerator = module.exports = function FrontendGenerator(arg, options
     this.bwr = JSON.parse(this.readFileAsString(path.join(__dirname, '/templates/bowerrc')));
 };
 
-util.inherits(FrontendGenerator, yeoman.generators.NamedBase);
+util.inherits(AppGenerator, yeoman.generators.NamedBase);
 
-FrontendGenerator.prototype.askFor = function askFor() {
+AppGenerator.prototype.askFor = function askFor() {
     var cb = this.async();
 
     var prompts = [
@@ -48,7 +48,7 @@ FrontendGenerator.prototype.askFor = function askFor() {
 
 };
 
-FrontendGenerator.prototype.app = function() {
+AppGenerator.prototype.app = function() {
     this.directory('src/', 'src/');
 
     this.mkdir('src/fonts');

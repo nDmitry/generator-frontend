@@ -1,15 +1,38 @@
 'use strict';
 
-var util = require('util'),
+var path = require('path'),
+    util = require('util'),
     yeoman = require('yeoman-generator');
 
-var Generator = module.exports = function Generator() {
+var StylusGenerator = module.exports = function StylusGenerator() {
     yeoman.generators.Base.apply(this, arguments);
 };
 
-util.inherits(Generator, yeoman.generators.NamedBase);
+util.inherits(StylusGenerator, yeoman.generators.NamedBase);
 
-Generator.prototype.stylus = function stylus() {
+StylusGenerator.prototype.askFor = function askFor() {
+    var cb = this.async();
+
+    var prompts = [
+        {
+            name: 'path',
+            message: 'Path',
+            default: 'src/stylus/'
+        }
+    ];
+
+    this.prompt(prompts, function(props) {
+        for (var prop in props) {
+            if (props.hasOwnProperty(prop)) {
+                this[prop] = props[prop];
+            }
+        }
+
+        cb();
+    }.bind(this));
+};
+
+StylusGenerator.prototype.stylus = function stylus() {
     var cb = this.async();
 
     this.log.info('Fetching Stylus lib...');
@@ -19,10 +42,10 @@ Generator.prototype.stylus = function stylus() {
             return cb(err);
         }
 
-        remote.directory('lib/', 'src/stylus/lib/');
-        remote.directory('partials/', 'src/stylus/partials/');
-        remote.copy('index.styl', 'src/stylus/index.styl');
+        remote.directory('lib/', path.join(this.path, 'lib/'));
+        remote.directory('partials/', path.join(this.path, 'partials/'));
+        remote.copy('index.styl', path.join(this.path, 'index.styl'));
 
         cb();
-    });
+    }.bind(this));
 };

@@ -19,6 +19,8 @@ describe('stylus generator', function() {
                 '../../stylus'
             ]);
 
+            this.app.options['skip-install'] = true;
+
             done();
         }.bind(this));
     });
@@ -29,7 +31,9 @@ describe('stylus generator', function() {
             'src/stylus/lib/mixins.styl'
         ];
 
-        this.app.options['skip-install'] = true;
+        helpers.mockPrompt(this.app, {
+            path: 'src/stylus/'
+        });
 
         this.app.run({}, function() {
             helpers.assertFiles(expected);
