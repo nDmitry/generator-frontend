@@ -1,4 +1,4 @@
-# generator-frontend [![Build Status](https://secure.travis-ci.org/nDmitry/generator-frontend.png?branch=master)](https://travis-ci.org/nDmitry/generator-frontend)
+# generator-frontend [![Build Status](https://secure.travis-ci.org/nDmitry/generator-frontend.png?branch=master)](https://travis-ci.org/nDmitry/generator-frontend) ![David](https://david-dm.org/nDmitry/generator-frontend.png)
 
 Scaffolds out the ‘boilerplate’ for front-end development with Grunt and Stylus.
 
@@ -28,7 +28,7 @@ List of what my Grunt config can make for you:
 * Image optimization
 
 ### Stylus subgenerator
-This subgenerator just fetches my small Stylus [library](https://github.com/nDmitry/stylus) and copies it to `src/stylus` directory.
+This subgenerator just fetches my small Stylus [library](https://github.com/nDmitry/stylus) and copies it to `src/stylus` directory (by default).
 
 ## License
 [MIT License](http://en.wikipedia.org/wiki/MIT_License)
