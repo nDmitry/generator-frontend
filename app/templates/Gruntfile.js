@@ -29,7 +29,7 @@ module.exports = function(grunt) {
             server: {
                 options: {
                     hostname: '*',
-                    port: 9001,
+                    port: grunt.option('port') || 9001,
                     base: './<%%= buildDir %>',
                     livereload: true
                 }
