@@ -145,14 +145,11 @@ module.exports = function(grunt) {
         },
 
         browserify: {
-            options: {
-                ignore: '<%%= bower.directory %>/'
-            },
             dist: {
                 options: {
                     debug: grunt.option('debug')
                 },
-                src: '<%%= srcDir %>/<%%= jsDir %>/{,*/}*.js',
+                src: ['<%%= srcDir %>/<%%= jsDir %>/{,*/}*.js', '!<%%= bower.directory %>/**'],
                 dest: '<%%= buildDir %>/<%%= jsDir %>/<%%= jsAppName %>.js'
             }
         },
