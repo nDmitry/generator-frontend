@@ -30,12 +30,7 @@ module.exports = function(grunt) {
                 options: {
                     port: 9001,
                     base: './',
-                    middleware: function(connect, options) {
-                        return [
-                            require('connect-livereload')(),
-                            connect.static(options.base)
-                        ];
-                    }
+                    livereload: true
                 }
             }
         },
