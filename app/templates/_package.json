@@ -2,6 +2,9 @@
   "name": "<%= _.slugify(projectName) %>",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+      "start": "grunt --debug"
+  },
   "devDependencies": {
     "connect-livereload": "~0.2.0",
     "grunt": "~0.4.1",
