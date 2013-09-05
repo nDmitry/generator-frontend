@@ -14,16 +14,17 @@ module.exports = function(grunt) {
 
         srcDir: 'src',
         buildDir: 'out',
-        jsDir: 'js',
-        jsVendorName: 'vendor',
-        jsAppName: 'app',
-        jsBundleName: 'bundle',
-        stylusDir: 'stylus',
         cssDir: 'css',
-        cssName: 'main',
+        stylusDir: 'stylus',
+        jsDir: 'js',
         imgDir: 'img',
         fontsDir: 'fonts',
         pagesDir: 'pages',
+        vendorDir: 'vendor',
+        cssName: 'main',
+        jsVendorName: 'vendor',
+        jsAppName: 'app',
+        jsBundleName: 'bundle',
 
         connect: {
             server: {
@@ -131,7 +132,14 @@ module.exports = function(grunt) {
         },
 
         concat: {
-            vendor: {
+            css_vendor: {
+                src: [
+                    '<%%= srcDir %>/<%%= cssDir %>/<%%= vendorDir %>/{,*/}*.css',
+                    '<%%= concat.css_vendor.dest %>'
+                ],
+                dest: '<%%= buildDir %>/<%%= cssDir %>/<%%= cssName %>.css'
+            },
+            js_vendor: {
                 src: [
                     '<%%= bower.directory %>/jquery/jquery.js',
                     // '<%%= bower.directory %>/bpopup/jquery.bpopup.js',
@@ -202,7 +210,12 @@ module.exports = function(grunt) {
 
             stylus: {
                 files: ['<%%= srcDir %>/<%%= stylusDir %>/{,*/}*.styl'],
-                tasks: ['stylus', 'autoprefixer', 'csslint']
+                tasks: ['stylus', 'csslint', 'concat:css_vendor', 'autoprefixer']
+            },
+
+            css_vendor: {
+                files: ['<%%= srcDir %>/<%%= cssDir %>/<%%= vendorDir %>/{,*/}*.css'],
+                tasks: ['stylus', 'concat:css_vendor', 'autoprefixer']
             },
 
             js: {
@@ -210,9 +223,9 @@ module.exports = function(grunt) {
                 tasks: ['browserify']
             },
 
-            vendor: {
+            js_vendor: {
                 files: ['<%%= bower.directory %>/{,*/}*.js'],
-                tasks: ['concat:vendor']
+                tasks: ['concat:js_vendor']
             },
 
             img: {
@@ -238,9 +251,9 @@ module.exports = function(grunt) {
     grunt.registerTask('default', [
         'connect',
         'copy',
-        'concat:vendor', 'browserify',
+        'concat:js_vendor', 'browserify',
         'ejs',
-        'stylus', 'autoprefixer',
+        'stylus', 'concat:css_vendor', 'autoprefixer',
         'watch'
     ]);
 
