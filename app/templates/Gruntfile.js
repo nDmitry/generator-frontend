@@ -253,6 +253,14 @@ module.exports = function(grunt) {
         'copy',
         'concat:js_vendor', 'browserify',
         'ejs',
+        'stylus', 'concat:css_vendor', 'autoprefixer'
+    ]);
+    
+    grunt.registerTask('server', [
+        'connect',
+        'copy',
+        'concat:js_vendor', 'browserify',
+        'ejs',
         'stylus', 'concat:css_vendor', 'autoprefixer',
         'watch'
     ]);
