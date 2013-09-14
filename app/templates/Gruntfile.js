@@ -22,8 +22,6 @@ module.exports = function(grunt) {
         pagesDir: 'pages',
         vendorDir: 'vendor',
         cssName: 'main',
-        jsVendorName: 'vendor',
-        jsAppName: 'app',
         jsBundleName: 'bundle',
 
         connect: {
@@ -124,16 +122,6 @@ module.exports = function(grunt) {
             }
         },
 
-        browserify: {
-            dist: {
-                options: {
-                    debug: grunt.option('debug')
-                },
-                src: ['<%%= srcDir %>/<%%= jsDir %>/{,*/}*.js', '!<%%= bower.directory %>/**'],
-                dest: '<%%= buildDir %>/<%%= jsDir %>/<%%= jsAppName %>.js'
-            }
-        },
-
         uglify: {
             options: {
                 report: 'min',
@@ -207,11 +195,6 @@ module.exports = function(grunt) {
                 tasks: ['stylus', 'autoprefixer']
             },
 
-            js: {
-                files: ['<%%= srcDir %>/<%%= jsDir %>/{,*/}*', '!<%%= bower.directory %>/'],
-                tasks: ['browserify']
-            },
-
             img: {
                 files: ['<%%= srcDir %>/<%%= imgDir %>/{,*/}*'],
                 tasks: ['clean:img', 'copy:img', 'sprite']
@@ -236,7 +219,6 @@ module.exports = function(grunt) {
         'ejs',
         'clean',
         'copy',
-        'browserify',
         'stylus', 'autoprefixer'
     ]);
 

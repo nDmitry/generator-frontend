@@ -1,5 +1,6 @@
-'use strict';
+(function() {
 
-var rename = require('./modules/rename');
+    'use strict';
 
-rename();
+
+}());
