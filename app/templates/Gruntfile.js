@@ -38,8 +38,6 @@ module.exports = function(grunt) {
         },
 
         clean: {
-            css: {src: '<%%= csso.dist.src %>'},
-            js: {src: '<%%= uglify.dist.src %>'},
             img: {src: '<%%= copy.img.dest %>'},
             fonts: {src: '<%%= copy.fonts.dest %>'}
         },
@@ -64,8 +62,6 @@ module.exports = function(grunt) {
             options: {
                 dev: grunt.option('debug'),
                 cssName: '<%%= cssName %>',
-                jsVendorName: '<%%= jsVendorName %>',
-                jsAppName: '<%%= jsAppName %>',
                 jsBundleName: '<%%= jsBundleName %>'
             },
             dist: {
@@ -125,31 +121,6 @@ module.exports = function(grunt) {
         csso: {
             options: {
                 report: 'min'
-            },
-            dist: {
-                src: '<%%= buildDir %>/<%%= cssDir %>/<%%= cssName %>.css',
-                dest: '<%%= buildDir %>/<%%= cssDir %>/<%%= cssName %>.min.css'
-            }
-        },
-
-        concat: {
-            css_vendor: {
-                src: [
-                    '<%%= srcDir %>/<%%= cssDir %>/<%%= vendorDir %>/{,*/}*.css',
-                    '<%%= concat.css_vendor.dest %>'
-                ],
-                dest: '<%%= buildDir %>/<%%= cssDir %>/<%%= cssName %>.css'
-            },
-            js_vendor: {
-                src: [
-                    '<%%= bower.directory %>/jquery/jquery.js',
-                    // '<%%= bower.directory %>/bpopup/jquery.bpopup.js',
-                    // '<%%= bower.directory %>/flexslider/jquery.flexslider.js',
-                    // '<%%= bower.directory %>/herotabs/dist/jquery.herotabs.js',
-                    // '<%%= bower.directory %>/powertip/jquery.powertip.js',
-                    // More components here
-                ],
-                dest: '<%%= buildDir %>/<%%= jsDir %>/<%%= jsVendorName %>.js'
             }
         },
 
@@ -167,13 +138,31 @@ module.exports = function(grunt) {
             options: {
                 report: 'min',
                 banner: '<%%= banner %>'
+            }
+        },
+
+        useminPrepare: {
+            options: {
+                cssmin: 'csso'
+            },
+            html: '<%%= buildDir %>/index.html'
+        },
+
+        usemin: {
+            html: '<%%= buildDir %>/{,*/}*.html',
+        },
+
+        rev: {
+            options: {
+                length: 4
             },
             dist: {
-                src: [
-                    '<%%= buildDir %>/<%%= jsDir %>/<%%= jsVendorName %>.js',
-                    '<%%= buildDir %>/<%%= jsDir %>/<%%= jsAppName %>.js'
-                ],
-                dest: '<%%= buildDir %>/<%%= jsDir %>/<%%= jsBundleName %>.min.js'
+                files: {
+                    src: [
+                        '<%%= buildDir %>/<%%= jsDir %>/<%%= jsBundleName %>.js',
+                        '<%%= buildDir %>/<%%= cssDir %>/<%%= cssName %>.css'
+                    ]
+                }
             }
         },
 
@@ -210,22 +199,17 @@ module.exports = function(grunt) {
 
             stylus: {
                 files: ['<%%= srcDir %>/<%%= stylusDir %>/{,*/}*.styl'],
-                tasks: ['stylus', 'csslint', 'concat:css_vendor', 'autoprefixer']
+                tasks: ['stylus', 'csslint', 'autoprefixer']
             },
 
-            css_vendor: {
+            css: {
                 files: ['<%%= srcDir %>/<%%= cssDir %>/<%%= vendorDir %>/{,*/}*.css'],
-                tasks: ['stylus', 'concat:css_vendor', 'autoprefixer']
+                tasks: ['stylus', 'autoprefixer']
             },
 
             js: {
                 files: ['<%%= srcDir %>/<%%= jsDir %>/{,*/}*', '!<%%= bower.directory %>/'],
                 tasks: ['browserify']
-            },
-
-            js_vendor: {
-                files: ['<%%= bower.directory %>/{,*/}*.js'],
-                tasks: ['concat:js_vendor']
             },
 
             img: {
@@ -249,11 +233,11 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask('build', [
+        'ejs',
         'clean',
         'copy',
-        'concat:js_vendor', 'browserify',
-        'ejs',
-        'stylus', 'concat:css_vendor', 'autoprefixer',
+        'browserify',
+        'stylus', 'autoprefixer'
     ]);
 
     grunt.registerTask('server', [
@@ -266,10 +250,12 @@ module.exports = function(grunt) {
     ]);
 
     grunt.registerTask('release', [
-        'build',
-        'uglify',
+        'useminPrepare',
+        'concat',
         'csso',
-        'clean:css', 'clean:js',
+        'uglify',
+        'rev',
+        'usemin',
         'pngmin'
     ]);
 
