@@ -42,17 +42,24 @@ module.exports = function(grunt) {
         },
 
         copy: {
+            css: {
+                expand: true,
+                cwd: '<%%= srcDir %>/<%%= cssDir %>/',
+                src: '{,*/}*',
+                dest: '<%%= buildDir %>/<%%= cssDir %>/'
+            },
+
             img: {
                 expand: true,
                 cwd: '<%%= srcDir %>/<%%= imgDir %>/',
-                src: ['{,*/}*'],
+                src: '{,*/}*',
                 dest: '<%%= buildDir %>/<%%= imgDir %>/'
             },
 
             fonts: {
                 expand: true,
                 cwd: '<%%= srcDir %>/<%%= fontsDir %>/',
-                src: ['{,*/}*'],
+                src: '{,*/}*',
                 dest: '<%%= buildDir %>/<%%= fontsDir %>/'
             }
         },
@@ -184,6 +191,11 @@ module.exports = function(grunt) {
             ejs: {
                 files: ['<%%= srcDir %>/<%%= pagesDir %>/{,*/}*.ejs'],
                 tasks: ['ejs']
+            },
+
+            css: {
+                files: ['<%%= srcDir %>/<%%= cssDir %>/{,*/}*.css'],
+                tasks: ['copy:css']
             },
 
             stylus: {
