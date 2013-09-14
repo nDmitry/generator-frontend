@@ -31,7 +31,7 @@ module.exports = function(grunt) {
                 options: {
                     hostname: '*',
                     port: grunt.option('port') || 9001,
-                    base: './<%%= buildDir %>',
+                    base: ['<%%= buildDir %>/', '<%%= srcDir %>/'],
                     livereload: true
                 }
             }
