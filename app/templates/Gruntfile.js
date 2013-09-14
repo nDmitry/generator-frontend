@@ -36,6 +36,7 @@ module.exports = function(grunt) {
         },
 
         clean: {
+            build: {src: '<%%= buildDir %>/'},
             img: {src: '<%%= copy.img.dest %>'},
             fonts: {src: '<%%= copy.fonts.dest %>'}
         },
@@ -211,9 +212,9 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask('build', [
-        'ejs',
-        'clean',
+        'clean:build',
         'copy',
+        'ejs',
         'stylus', 'autoprefixer'
     ]);
 
