@@ -190,11 +190,6 @@ module.exports = function(grunt) {
                 tasks: ['stylus', 'csslint', 'autoprefixer']
             },
 
-            css: {
-                files: ['<%%= srcDir %>/<%%= cssDir %>/<%%= vendorDir %>/{,*/}*.css'],
-                tasks: ['stylus', 'autoprefixer']
-            },
-
             img: {
                 files: ['<%%= srcDir %>/<%%= imgDir %>/{,*/}*'],
                 tasks: ['clean:img', 'copy:img', 'sprite']
