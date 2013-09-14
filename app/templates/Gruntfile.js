@@ -205,7 +205,7 @@ module.exports = function(grunt) {
         watch: {
 
             ejs: {
-                files: ['<%%= srcDir %>/**/*.ejs'],
+                files: ['<%%= srcDir %>/<%%= pagesDir %>/{,*/}*.ejs'],
                 tasks: ['ejs']
             },
 
