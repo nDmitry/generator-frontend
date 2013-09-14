@@ -203,7 +203,6 @@ module.exports = function(grunt) {
         },
 
         watch: {
-
             ejs: {
                 files: ['<%%= srcDir %>/<%%= pagesDir %>/{,*/}*.ejs'],
                 tasks: ['ejs']
@@ -249,19 +248,26 @@ module.exports = function(grunt) {
 
     });
 
-    grunt.registerTask('default', [
-        'connect',
+    grunt.registerTask('build', [
+        'clean',
         'copy',
         'concat:js_vendor', 'browserify',
         'ejs',
         'stylus', 'concat:css_vendor', 'autoprefixer',
+    ]);
+
+    grunt.registerTask('server', [
+        'connect',
         'watch'
     ]);
 
+    grunt.registerTask('default', [
+        'build'
+    ]);
+
     grunt.registerTask('release', [
-        'browserify',
+        'build',
         'uglify',
-        'ejs',
         'csso',
         'clean:css', 'clean:js',
         'pngmin'
