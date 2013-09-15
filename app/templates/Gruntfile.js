@@ -232,7 +232,7 @@ module.exports = function(grunt) {
                 options: {
                     livereload: true
                 },
-                files: ['<%%= buildDir %>/**/*']
+                files: ['<%%= buildDir %>/**', '<%%= srcDir %>/<%%= jsDir %>/**/*.js']
             }
         }
 
