@@ -206,10 +206,7 @@ module.exports = function(grunt) {
             },
 
             bower: {
-                options: {
-                    event: ['added', 'deleted'],
-                },
-                files: ['<%%= srcDir %>/<%%= jsDir %>/<%%= vendorDir %>/*'],
+                files: ['bower.json'],
                 tasks: ['bower-install']
             },
 
@@ -242,8 +239,7 @@ module.exports = function(grunt) {
         'clean:build',
         'copy',
         'ejs',
-        'stylus', 'autoprefixer',
-        'bower-install'
+        'stylus', 'autoprefixer'
     ]);
 
     grunt.registerTask('server', [
@@ -252,6 +248,7 @@ module.exports = function(grunt) {
     ]);
 
     grunt.registerTask('default', [
+        'bower-install',
         'build'
     ]);
 
