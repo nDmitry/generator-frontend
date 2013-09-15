@@ -173,16 +173,11 @@ module.exports = function(grunt) {
             }
         },
 
-        pngmin: {
+        imagemin: {
             dist: {
-                options: {
-                    binary: '/usr/local/bin/pngquant',
-                    ext: '.png',
-                    force: true
-                },
                 expand: true,
                 cwd: '<%%= buildDir %>/<%%= imgDir %>/',
-                src: ['{,*/}*.png'],
+                src: ['{,*/}*.{png,jpg,jpeg,gif}'],
                 dest: '<%%= buildDir %>/<%%= imgDir %>/'
             }
         },
@@ -246,7 +241,7 @@ module.exports = function(grunt) {
         'uglify',
         'rev',
         'usemin',
-        'pngmin'
+        'imagemin'
     ]);
 
 };
