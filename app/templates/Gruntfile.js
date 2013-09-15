@@ -164,7 +164,7 @@ module.exports = function(grunt) {
 
         sprite: {
             dist: {
-                src: ['<%%= srcDir %>/<%%= imgDir %>/sprites/*'],
+                src: ['<%%= srcDir %>/<%%= imgDir %>/sprites/{,*/}*.png'],
                 destImg: '<%%= buildDir %>/<%%= imgDir %>/sprite.png',
                 destCSS: '<%%= srcDir %>/<%%= stylusDir %>/partials/sprites.styl',
                 imgPath: '../<%%= imgDir %>/sprite.png',
@@ -200,7 +200,12 @@ module.exports = function(grunt) {
 
             img: {
                 files: ['<%%= srcDir %>/<%%= imgDir %>/{,*/}*'],
-                tasks: ['clean:img', 'copy:img', 'sprite']
+                tasks: ['clean:img', 'copy:img']
+            },
+
+            sprite: {
+                files: '<%%= sprite.dist.src %>',
+                tasks: 'sprite'
             },
 
             fonts: {
