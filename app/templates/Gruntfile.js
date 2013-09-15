@@ -52,7 +52,7 @@ module.exports = function(grunt) {
             img: {
                 expand: true,
                 cwd: '<%%= srcDir %>/<%%= imgDir %>/',
-                src: '{,*/}*',
+                src: ['{,*/}*', '!sprites/{,*/}*'],
                 dest: '<%%= buildDir %>/<%%= imgDir %>/'
             },
 
