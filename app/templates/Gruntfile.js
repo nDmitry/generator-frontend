@@ -162,6 +162,13 @@ module.exports = function(grunt) {
             }
         },
 
+        'bower-install': {
+            dist: {
+                html: '<%%= srcDir %>/<%%= pagesDir %>/partials/scripts.ejs',
+                ignorePath: '<%%= srcDir %>/'
+            }
+        },
+
         sprite: {
             dist: {
                 src: ['<%%= srcDir %>/<%%= imgDir %>/sprites/{,*/}*.png'],
@@ -198,6 +205,14 @@ module.exports = function(grunt) {
                 tasks: ['stylus', 'csslint', 'autoprefixer']
             },
 
+            bower: {
+                options: {
+                    event: ['added', 'deleted'],
+                },
+                files: ['<%%= srcDir %>/<%%= jsDir %>/<%%= vendorDir %>/*'],
+                tasks: ['bower-install']
+            },
+
             img: {
                 files: ['<%%= srcDir %>/<%%= imgDir %>/{,*/}*'],
                 tasks: ['clean:img', 'copy:img']
@@ -227,7 +242,8 @@ module.exports = function(grunt) {
         'clean:build',
         'copy',
         'ejs',
-        'stylus', 'autoprefixer'
+        'stylus', 'autoprefixer',
+        'bower-install'
     ]);
 
     grunt.registerTask('server', [
