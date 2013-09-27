@@ -111,13 +111,11 @@ module.exports = function(grunt) {
                 'gradients': false,
                 'important': false,
                 'outline-none': false,
-                'qualified-headings': false,
                 'regex-selectors': false,
-                'text-indent': false,
-                'unique-headings': false,
                 'universal-selector': false,
                 'unqualified-attributes': false,
-                'known-properties': false
+                'bulletproof-font-face': false,
+                'unique-headings': false
             },
             dist: {
                 src: '<%%= buildDir %>/<%%= cssDir %>/<%%= cssName %>.css'
