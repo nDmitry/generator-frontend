@@ -202,7 +202,7 @@ module.exports = function(grunt) {
 
             stylus: {
                 files: ['<%%= srcDir %>/<%%= stylusDir %>/{,*/}*.styl'],
-                tasks: ['stylus', 'csslint', 'autoprefixer']
+                tasks: ['stylus', 'autoprefixer']
             },
 
             bower: {
@@ -247,9 +247,8 @@ module.exports = function(grunt) {
         'watch'
     ]);
 
-    grunt.registerTask('default', [
-        'bower-install',
-        'build'
+    grunt.registerTask('lint', [
+        'csslint'
     ]);
 
     grunt.registerTask('release', [
@@ -262,4 +261,8 @@ module.exports = function(grunt) {
         'imagemin'
     ]);
 
+    grunt.registerTask('default', [
+        'bower-install',
+        'build'
+    ]);
 };
