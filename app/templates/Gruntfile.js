@@ -199,7 +199,7 @@ module.exports = function(grunt) {
             },
 
             stylus: {
-                files: ['<%%= srcDir %>/<%%= stylusDir %>/{,*/}*.styl'],
+                files: ['<%%= srcDir %>/<%%= stylusDir %>/**/*.styl'],
                 tasks: ['stylus', 'autoprefixer']
             },
 
