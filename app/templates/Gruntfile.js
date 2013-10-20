@@ -22,7 +22,7 @@ module.exports = function(grunt) {
         pagesDir: 'pages',
         vendorDir: 'vendor',
         cssName: 'main',
-        jsBundleName: 'bundle',
+        bundleName: 'bundle',
 
         connect: {
             server: {
@@ -38,7 +38,8 @@ module.exports = function(grunt) {
         clean: {
             build: {src: '<%%= buildDir %>/'},
             img: {src: '<%%= copy.img.dest %>'},
-            fonts: {src: '<%%= copy.fonts.dest %>'}
+            fonts: {src: '<%%= copy.fonts.dest %>'},
+            tmp: {src: '.tmp/'}
         },
 
         copy: {
@@ -68,7 +69,7 @@ module.exports = function(grunt) {
             options: {
                 dev: grunt.option('debug'),
                 cssName: '<%%= cssName %>',
-                jsBundleName: '<%%= jsBundleName %>'
+                bundleName: '<%%= bundleName %>'
             },
             dist: {
                 expand: true,
@@ -82,8 +83,7 @@ module.exports = function(grunt) {
         stylus: {
             dist: {
                 options: {
-                    compress: false,
-                    banner: '<%%= banner %>'
+                    compress: false
                 },
                 files: {
                     '<%%= buildDir %>/<%%= cssDir %>/<%%= cssName %>.css': '<%%= srcDir %>/<%%= stylusDir %>/index.styl'
@@ -122,8 +122,9 @@ module.exports = function(grunt) {
             }
         },
 
-        csso: {
+        cssmin: {
             options: {
+                banner: '<%%= banner %>',
                 report: 'min'
             }
         },
@@ -137,26 +138,24 @@ module.exports = function(grunt) {
 
         useminPrepare: {
             options: {
-                cssmin: 'csso'
+                dest: '<%%= buildDir %>'
             },
             html: '<%%= buildDir %>/index.html'
         },
 
         usemin: {
-            html: '<%%= buildDir %>/{,*/}*.html',
+            html: '<%%= buildDir %>/*.html',
         },
 
-        rev: {
+        filerev: {
             options: {
                 length: 4
             },
             dist: {
-                files: {
-                    src: [
-                        '<%%= buildDir %>/<%%= jsDir %>/<%%= jsBundleName %>.js',
-                        '<%%= buildDir %>/<%%= cssDir %>/<%%= cssName %>.css'
-                    ]
-                }
+                src: [
+                    '<%%= buildDir %>/<%%= cssDir %>/<%%= bundleName %>.css',
+                    '<%%= buildDir %>/<%%= jsDir %>/<%%= bundleName %>.js'
+                ]
             }
         },
 
@@ -252,11 +251,12 @@ module.exports = function(grunt) {
     grunt.registerTask('release', [
         'useminPrepare',
         'concat',
-        'csso',
+        'cssmin',
         'uglify',
-        'rev',
+        'filerev',
         'usemin',
-        'imagemin'
+        'imagemin',
+        'clean:tmp'
     ]);
 
     grunt.registerTask('default', [
