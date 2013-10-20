@@ -96,8 +96,7 @@ module.exports = function(grunt) {
                 browsers: ['> 1%', 'last 2 versions', 'ff 17', 'opera 12.1', 'ie 8']
             },
             dist: {
-                src: '<%%= buildDir %>/<%%= cssDir %>/<%%= cssName %>.css',
-                dest: '<%%= buildDir %>/<%%= cssDir %>/<%%= cssName %>.css'
+                src: '<%%= buildDir %>/<%%= cssDir %>/<%%= cssName %>.css'
             }
         },
 
