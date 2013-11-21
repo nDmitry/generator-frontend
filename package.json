@@ -1,6 +1,6 @@
 {
   "name": "generator-frontend",
-  "version": "2.2.3",
+  "version": "2.2.4",
   "description": "Scaffolds out a boilerplate for front-end development.",
   "keywords": [
     "yeoman-generator"
