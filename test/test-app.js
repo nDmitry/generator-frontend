@@ -32,7 +32,7 @@ describe('app generator', function() {
             'src/pages/partials/footer.ejs',
             'src/pages/partials/scripts.ejs',
             'src/js/app.js',
-            ['.gitignore', /src\/js/],
+            '.gitignore',
             '.editorconfig',
             '.jshintrc',
             '.bowerrc',

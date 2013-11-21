@@ -52,13 +52,13 @@ AppGenerator.prototype.app = function() {
     this.directory('src/', 'src/');
 
     this.mkdir('src/fonts');
-    this.mkdir('src/img/sprites');
+    this.mkdir('src/img/sprites/2x');
 
+    this.copy('_gitignore', '.gitignore');
     this.copy('editorconfig', '.editorconfig');
     this.copy('jshintrc', '.jshintrc');
     this.copy('bowerrc', '.bowerrc');
 
-    this.template('_gitignore', '.gitignore');
     this.template('_bower.json', 'bower.json');
     this.template('_package.json', 'package.json');
     this.template('Gruntfile.js', 'Gruntfile.js');

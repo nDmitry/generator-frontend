@@ -167,10 +167,18 @@ module.exports = function(grunt) {
 
         sprite: {
             dist: {
-                src: ['<%%= srcDir %>/<%%= imgDir %>/sprites/{,*/}*.png'],
+                src: '<%%= srcDir %>/<%%= imgDir %>/sprites/*.png',
                 destImg: '<%%= buildDir %>/<%%= imgDir %>/sprite.png',
                 destCSS: '<%%= srcDir %>/<%%= stylusDir %>/partials/sprites.styl',
                 imgPath: '../<%%= imgDir %>/sprite.png',
+                algorithm: 'binary-tree',
+                padding: 5
+            },
+            hidpi: {
+                src: '<%%= srcDir %>/<%%= imgDir %>/sprites/2x/*.png',
+                destImg: '<%%= buildDir %>/<%%= imgDir %>/sprite_2x.png',
+                destCSS: '<%%= srcDir %>/<%%= stylusDir %>/partials/sprites.styl',
+                imgPath: '../<%%= imgDir %>/sprite_2x.png',
                 algorithm: 'binary-tree',
                 padding: 5
             }
@@ -213,7 +221,7 @@ module.exports = function(grunt) {
 
             sprite: {
                 files: '<%%= sprite.dist.src %>',
-                tasks: 'sprite'
+                tasks: 'sprite:all'
             },
 
             fonts: {
