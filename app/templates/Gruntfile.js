@@ -222,7 +222,7 @@ module.exports = function(grunt) {
             },
 
             sprite: {
-                files: ['<%= sprite.dist.src %>', '<%= sprite.hidpi.src %>'],
+                files: ['<%%= sprite.dist.src %>', '<%%= sprite.hidpi.src %>'],
                 tasks: 'sprite'
             },
 
