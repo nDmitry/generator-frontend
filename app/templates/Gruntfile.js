@@ -172,6 +172,7 @@ module.exports = function(grunt) {
                 destCSS: '<%%= srcDir %>/<%%= stylusDir %>/partials/sprites.styl',
                 imgPath: '../<%%= imgDir %>/sprite.png',
                 algorithm: 'binary-tree',
+                engine: 'gm',
                 padding: 5
             },
             hidpi: {
@@ -180,6 +181,7 @@ module.exports = function(grunt) {
                 destCSS: '<%%= srcDir %>/<%%= stylusDir %>/partials/sprites.styl',
                 imgPath: '../<%%= imgDir %>/sprite_2x.png',
                 algorithm: 'binary-tree',
+                engine: 'gm',
                 padding: 5
             }
         },
@@ -216,12 +218,12 @@ module.exports = function(grunt) {
 
             img: {
                 files: ['<%%= srcDir %>/<%%= imgDir %>/{,*/}*'],
-                tasks: ['clean:img', 'copy:img']
+                tasks: ['clean:img', 'copy:img', 'sprite']
             },
 
             sprite: {
-                files: '<%%= sprite.dist.src %>',
-                tasks: 'sprite:all'
+                files: ['<%= sprite.dist.src %>', '<%= sprite.hidpi.src %>'],
+                tasks: 'sprite'
             },
 
             fonts: {
