@@ -44,8 +44,14 @@ StylusGenerator.prototype.stylus = function stylus() {
 
         remote.directory('lib/', path.join(this.path, 'lib/'));
         remote.directory('partials/', path.join(this.path, 'partials/'));
-        remote.copy('index.styl', path.join(this.path, 'index.styl'));
-        remote.copy('vars.styl', path.join(this.path, 'vars.styl'));
+
+        var files = this.expandFiles('*.styl', {
+            cwd: remote.cachePath
+        });
+
+        files.map(function(filename) {
+            remote.copy(filename, path.join(this.path, filename));
+        }.bind(this));
 
         cb();
     }.bind(this));

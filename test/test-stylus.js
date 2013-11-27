@@ -28,6 +28,7 @@ describe('stylus generator', function() {
     it('creates expected files', function(done) {
         var expected = [
             'src/stylus/index.styl',
+            'src/stylus/hooks.styl',
             'src/stylus/vars.styl',
             'src/stylus/lib/index.styl',
             'src/stylus/lib/base/index.styl',
