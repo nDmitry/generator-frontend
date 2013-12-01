@@ -187,6 +187,9 @@ module.exports = function(grunt) {
         },
 
         imagemin: {
+            options: {
+                pngquant: true
+            },
             dist: {
                 expand: true,
                 cwd: '<%%= buildDir %>/<%%= imgDir %>/',
