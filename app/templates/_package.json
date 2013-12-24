@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-      "start": "grunt && grunt server"
+      "start": "grunt && grunt serve"
   },
   "devDependencies": {
     "connect-livereload": "~0.3.1",
