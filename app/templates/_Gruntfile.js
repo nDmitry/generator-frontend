@@ -61,6 +61,13 @@ module.exports = function(grunt) {
                 cwd: '<%%= srcDir %>/<%%= fontsDir %>/',
                 src: '{,*/}*',
                 dest: '<%%= buildDir %>/<%%= fontsDir %>/'
+            },
+
+            js: {
+                expand: true,
+                cwd: '<%%= srcDir %>/<%%= jsDir %>/',
+                src: '**/*.js',
+                dest: '<%%= buildDir %>/<%%= jsDir %>/'
             }
         },
 
@@ -197,6 +204,16 @@ module.exports = function(grunt) {
             }
         },
 
+        compress: {
+            main: {
+                options: {
+                    archive: '<%%= buildDir %>.zip'
+                },
+                src: '<%%= buildDir %>/**',
+                dest: './'
+            }
+        },
+
         watch: {
             ejs: {
                 files: ['<%%= srcDir %>/<%%= pagesDir %>/{,*/}*.ejs'],
@@ -234,10 +251,18 @@ module.exports = function(grunt) {
 
     });
 
+    // Compile all files that should be compiled
     grunt.registerTask('build', [
         'clean:build',
         'ejs',
         'stylus', 'autoprefixer'
+    ]);
+
+    // Create non-minified project snapshot in build directory and compress it
+    grunt.registerTask('dist', [
+        'build',
+        'copy',
+        'compress'
     ]);
 
     grunt.registerTask('serve', [
@@ -249,8 +274,10 @@ module.exports = function(grunt) {
         'csslint'
     ]);
 
+    // Minify all JS and CSS, optimize images, rev JS and CSS and replace paths in HTML
     grunt.registerTask('minify', [
-        'copy',
+        'build',
+        'copy:css', 'copy:img', 'copy:fonts',
         'useminPrepare',
         'concat',
         'clean:css',
