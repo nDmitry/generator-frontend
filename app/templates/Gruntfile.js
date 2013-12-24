@@ -37,6 +37,7 @@ module.exports = function(grunt) {
 
         clean: {
             build: {src: '<%%= buildDir %>/'},
+            css: {src: '<%%= copy.css.dest %>'},
             img: {src: '<%%= copy.img.dest %>'},
             fonts: {src: '<%%= copy.fonts.dest %>'},
             tmp: {src: '.tmp/'}
@@ -263,6 +264,7 @@ module.exports = function(grunt) {
     grunt.registerTask('release', [
         'useminPrepare',
         'concat',
+        'clean:css',
         'cssmin',
         'uglify',
         'filerev',
