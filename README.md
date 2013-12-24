@@ -8,7 +8,7 @@ Scaffolds out the boilerplate for front-end development with Grunt and Stylus.
 - Run: `yo frontend`
 
 ## Subgenerators
-Generator includes three subgenerators: `app`, `stylus` and `pure`. You can run them separately with the commands: `yo frontend:app` or `yo frontend:stylus`.
+Generator includes two subgenerators: `app` and `stylus`. You can run them separately with the commands: `yo frontend:app` and `yo frontend:stylus`.
 
 ### App subgenerator
 The subgenerator scaffolds out some starting files (e.g. `app.js`, EJS templates based on h5bp), Gruntfile.js to process them and build, Bower config files, `.jshintrc`, `.editorconfig` and `.gitignore`.
@@ -24,12 +24,10 @@ List of what my Grunt config can do for you:
 * CSS and JS minification (`usemin`)
 * Revving filenames
 * Image optimization
+* And more...
 
 ### Stylus subgenerator
-This subgenerator just fetches my small Stylus [library](https://github.com/nDmitry/stylus) and copies it to `src/stylus` directory (by default).
-
-### Pure subgenerator
-Fetches [YUI Pure](http://purecss.io/) CSS framework with the ability to select necessary components.
+This subgenerator just fetches my Stylus [library](https://github.com/nDmitry/stylus) and copies it to `src/stylus` directory (by default).
 
 ## License
 [MIT License](http://en.wikipedia.org/wiki/MIT_License)
