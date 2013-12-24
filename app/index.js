@@ -61,6 +61,6 @@ AppGenerator.prototype.app = function() {
 
     this.template('_bower.json', 'bower.json');
     this.template('_package.json', 'package.json');
-    this.template('Gruntfile.js', 'Gruntfile.js');
+    this.template('_Gruntfile.js', 'Gruntfile.js');
     this.template('_index.ejs', 'src/pages/index.ejs');
 };
