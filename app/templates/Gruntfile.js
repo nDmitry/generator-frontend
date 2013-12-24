@@ -261,7 +261,7 @@ module.exports = function(grunt) {
         'csslint'
     ]);
 
-    grunt.registerTask('release', [
+    grunt.registerTask('minify', [
         'useminPrepare',
         'concat',
         'clean:css',
