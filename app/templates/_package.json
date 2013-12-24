@@ -9,7 +9,6 @@
     "connect-livereload": "~0.3.1",
     "grunt": "~0.4.2",
     "grunt-autoprefixer": "~0.5.0",
-    "grunt-bower-install": "~0.8.0",
     "grunt-ejs": "~0.1.0",
     "grunt-contrib-clean": "~0.5.0",
     "grunt-contrib-compress": "~0.5.3",

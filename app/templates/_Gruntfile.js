@@ -164,13 +164,6 @@ module.exports = function(grunt) {
             }
         },
 
-        'bower-install': {
-            dist: {
-                src: '<%%= srcDir %>/<%%= pagesDir %>/partials/scripts.ejs',
-                ignorePath: '<%%= srcDir %>/'
-            }
-        },
-
         sprite: {
             dist: {
                 src: '<%%= srcDir %>/<%%= imgDir %>/sprites/*.png',
@@ -223,11 +216,6 @@ module.exports = function(grunt) {
             stylus: {
                 files: ['<%%= srcDir %>/<%%= stylusDir %>/**/*.styl'],
                 tasks: ['stylus', 'autoprefixer']
-            },
-
-            bower: {
-                files: ['bower.json'],
-                tasks: ['bower-install']
             },
 
             sprite: {
@@ -290,7 +278,6 @@ module.exports = function(grunt) {
     ]);
 
     grunt.registerTask('default', [
-        'bower-install',
         'build'
     ]);
 };
