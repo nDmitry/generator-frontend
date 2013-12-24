@@ -38,8 +38,6 @@ module.exports = function(grunt) {
         clean: {
             build: {src: '<%%= buildDir %>/'},
             css: {src: '<%%= copy.css.dest %>'},
-            img: {src: '<%%= copy.img.dest %>'},
-            fonts: {src: '<%%= copy.fonts.dest %>'},
             tmp: {src: '.tmp/'}
         },
 
@@ -205,11 +203,6 @@ module.exports = function(grunt) {
                 tasks: ['ejs']
             },
 
-            css: {
-                files: ['<%%= srcDir %>/<%%= cssDir %>/{,*/}*.css'],
-                tasks: ['copy:css']
-            },
-
             stylus: {
                 files: ['<%%= srcDir %>/<%%= stylusDir %>/**/*.styl'],
                 tasks: ['stylus', 'autoprefixer']
@@ -220,26 +213,22 @@ module.exports = function(grunt) {
                 tasks: ['bower-install']
             },
 
-            img: {
-                files: ['<%%= srcDir %>/<%%= imgDir %>/{,*/}*'],
-                tasks: ['clean:img', 'copy:img', 'sprite']
-            },
-
             sprite: {
                 files: ['<%%= sprite.dist.src %>', '<%%= sprite.hidpi.src %>'],
                 tasks: 'sprite'
-            },
-
-            fonts: {
-                files: ['<%%= srcDir %>/<%%= fontsDir %>/{,*/}*'],
-                tasks: ['clean:fonts', 'copy:fonts']
             },
 
             livereload: {
                 options: {
                     livereload: true
                 },
-                files: ['<%%= buildDir %>/**', '<%%= srcDir %>/<%%= jsDir %>/**/*.js']
+                files: [
+                    '<%%= buildDir %>/**',
+                    '<%%= srcDir %>/<%%= cssDir %>/{,*/}*.css',
+                    '<%%= srcDir %>/<%%= imgDir %>/**/*',
+                    '<%%= srcDir %>/<%%= fontsDir %>/{,*/}*',
+                    '<%%= srcDir %>/<%%= jsDir %>/**/*.js'
+                ]
             }
         }
 
@@ -247,7 +236,6 @@ module.exports = function(grunt) {
 
     grunt.registerTask('build', [
         'clean:build',
-        'copy',
         'ejs',
         'stylus', 'autoprefixer'
     ]);
@@ -262,6 +250,7 @@ module.exports = function(grunt) {
     ]);
 
     grunt.registerTask('minify', [
+        'copy',
         'useminPrepare',
         'concat',
         'clean:css',
