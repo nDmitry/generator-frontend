@@ -13,7 +13,7 @@ module.exports = function(grunt) {
         bower: grunt.file.readJSON('.bowerrc'),
 
         srcDir: 'src',
-        buildDir: 'out',
+        buildDir: 'dist',
         cssDir: 'css',
         stylusDir: 'stylus',
         jsDir: 'js',
@@ -37,8 +37,7 @@ module.exports = function(grunt) {
 
         clean: {
             build: {src: '<%%= buildDir %>/'},
-            img: {src: '<%%= copy.img.dest %>'},
-            fonts: {src: '<%%= copy.fonts.dest %>'},
+            css: {src: '<%%= copy.css.dest %>'},
             tmp: {src: '.tmp/'}
         },
 
@@ -62,6 +61,13 @@ module.exports = function(grunt) {
                 cwd: '<%%= srcDir %>/<%%= fontsDir %>/',
                 src: '{,*/}*',
                 dest: '<%%= buildDir %>/<%%= fontsDir %>/'
+            },
+
+            js: {
+                expand: true,
+                cwd: '<%%= srcDir %>/<%%= jsDir %>/',
+                src: '**/*.js',
+                dest: '<%%= buildDir %>/<%%= jsDir %>/'
             }
         },
 
@@ -93,7 +99,7 @@ module.exports = function(grunt) {
 
         autoprefixer: {
             options: {
-                browsers: ['> 1%', 'last 2 versions', 'ff 17', 'opera 12.1', 'ie 8']
+                browsers: ['> 1%', 'last 2 versions', 'ff 24', 'opera 12.1', 'ie 8', 'ie 9']
             },
             dist: {
                 src: '<%%= buildDir %>/<%%= cssDir %>/<%%= cssName %>.css'
@@ -158,13 +164,6 @@ module.exports = function(grunt) {
             }
         },
 
-        'bower-install': {
-            dist: {
-                html: '<%%= srcDir %>/<%%= pagesDir %>/partials/scripts.ejs',
-                ignorePath: '<%%= srcDir %>/'
-            }
-        },
-
         sprite: {
             dist: {
                 src: '<%%= srcDir %>/<%%= imgDir %>/sprites/*.png',
@@ -198,15 +197,20 @@ module.exports = function(grunt) {
             }
         },
 
+        compress: {
+            main: {
+                options: {
+                    archive: '<%%= buildDir %>.zip'
+                },
+                src: '<%%= buildDir %>/**',
+                dest: './'
+            }
+        },
+
         watch: {
             ejs: {
                 files: ['<%%= srcDir %>/<%%= pagesDir %>/{,*/}*.ejs'],
                 tasks: ['ejs']
-            },
-
-            css: {
-                files: ['<%%= srcDir %>/<%%= cssDir %>/{,*/}*.css'],
-                tasks: ['copy:css']
             },
 
             stylus: {
@@ -214,44 +218,42 @@ module.exports = function(grunt) {
                 tasks: ['stylus', 'autoprefixer']
             },
 
-            bower: {
-                files: ['bower.json'],
-                tasks: ['bower-install']
-            },
-
-            img: {
-                files: ['<%%= srcDir %>/<%%= imgDir %>/{,*/}*'],
-                tasks: ['clean:img', 'copy:img', 'sprite']
-            },
-
             sprite: {
                 files: ['<%%= sprite.dist.src %>', '<%%= sprite.hidpi.src %>'],
                 tasks: 'sprite'
-            },
-
-            fonts: {
-                files: ['<%%= srcDir %>/<%%= fontsDir %>/{,*/}*'],
-                tasks: ['clean:fonts', 'copy:fonts']
             },
 
             livereload: {
                 options: {
                     livereload: true
                 },
-                files: ['<%%= buildDir %>/**', '<%%= srcDir %>/<%%= jsDir %>/**/*.js']
+                files: [
+                    '<%%= buildDir %>/**',
+                    '<%%= srcDir %>/<%%= cssDir %>/{,*/}*.css',
+                    '<%%= srcDir %>/<%%= imgDir %>/**/*',
+                    '<%%= srcDir %>/<%%= fontsDir %>/{,*/}*',
+                    '<%%= srcDir %>/<%%= jsDir %>/**/*.js'
+                ]
             }
         }
 
     });
 
+    // Compile all files that should be compiled
     grunt.registerTask('build', [
         'clean:build',
-        'copy',
         'ejs',
         'stylus', 'autoprefixer'
     ]);
 
-    grunt.registerTask('server', [
+    // Create non-minified project snapshot in build directory and compress it
+    grunt.registerTask('dist', [
+        'build',
+        'copy',
+        'compress'
+    ]);
+
+    grunt.registerTask('serve', [
         'connect',
         'watch'
     ]);
@@ -260,9 +262,13 @@ module.exports = function(grunt) {
         'csslint'
     ]);
 
-    grunt.registerTask('release', [
+    // Minify all JS and CSS, optimize images, rev JS and CSS and replace paths in HTML
+    grunt.registerTask('minify', [
+        'build',
+        'copy:css', 'copy:img', 'copy:fonts',
         'useminPrepare',
         'concat',
+        'clean:css',
         'cssmin',
         'uglify',
         'filerev',
@@ -272,7 +278,6 @@ module.exports = function(grunt) {
     ]);
 
     grunt.registerTask('default', [
-        'bower-install',
         'build'
     ]);
 };

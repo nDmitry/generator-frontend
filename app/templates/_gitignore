@@ -2,6 +2,6 @@
 .idea/
 *.sublime-*
 node_modules/
-out/
-out.zip
+dist/
+dist.zip
 vendor/
