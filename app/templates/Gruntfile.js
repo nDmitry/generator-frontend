@@ -13,7 +13,7 @@ module.exports = function(grunt) {
         bower: grunt.file.readJSON('.bowerrc'),
 
         srcDir: 'src',
-        buildDir: 'out',
+        buildDir: 'dist',
         cssDir: 'css',
         stylusDir: 'stylus',
         jsDir: 'js',
