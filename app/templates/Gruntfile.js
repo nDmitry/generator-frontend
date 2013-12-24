@@ -252,7 +252,7 @@ module.exports = function(grunt) {
         'stylus', 'autoprefixer'
     ]);
 
-    grunt.registerTask('server', [
+    grunt.registerTask('serve', [
         'connect',
         'watch'
     ]);
