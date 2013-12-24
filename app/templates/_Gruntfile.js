@@ -166,7 +166,7 @@ module.exports = function(grunt) {
 
         'bower-install': {
             dist: {
-                html: '<%%= srcDir %>/<%%= pagesDir %>/partials/scripts.ejs',
+                src: '<%%= srcDir %>/<%%= pagesDir %>/partials/scripts.ejs',
                 ignorePath: '<%%= srcDir %>/'
             }
         },
