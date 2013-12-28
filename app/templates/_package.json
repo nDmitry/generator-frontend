@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-      "start": "grunt && grunt serve"
+    "start": "grunt && grunt serve"
   },
   "devDependencies": {
     "connect-livereload": "~0.3.1",
     "grunt": "~0.4.2",
-    "grunt-autoprefixer": "~0.5.0",
+    "grunt-autoprefixer": "~0.6.3",
     "grunt-ejs": "~0.1.0",
     "grunt-contrib-clean": "~0.5.0",
     "grunt-contrib-compress": "~0.5.3",
