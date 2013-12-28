@@ -3,11 +3,11 @@
 <!--[if IE 8]>         <html lang="<%= lang %>" class="no-js is-ie8 oldie"><![endif]-->
 <!--[if gt IE 8]><!--> <html lang="<%= lang %>" class="no-js"><!--<![endif]-->
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title><%= _.capitalize(projectName) %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <%% include partials/styles -%>
+    <%% include partials/styles.ejs %>
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -16,7 +16,7 @@
 
     <div class="l-wrapper">
 
-        <%% include partials/header -%>
+        <%% include partials/header.ejs %>
 
         <main role="main">
 
@@ -24,11 +24,11 @@
 
         </main>
 
-        <%% include partials/footer -%>
+        <%% include partials/footer.ejs %>
 
     </div>
 
-    <%% include partials/scripts -%>
+    <%% include partials/scripts.ejs %>
 
 </body>
 </html>
