@@ -6,7 +6,6 @@
     "start": "grunt && grunt serve"
   },
   "devDependencies": {
-    "connect-livereload": "~0.3.1",
     "grunt": "~0.4.2",
     "grunt-autoprefixer": "~0.6.3",
     "grunt-ejs": "~0.1.0",
