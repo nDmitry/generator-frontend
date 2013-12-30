@@ -218,6 +218,7 @@ module.exports = function(grunt) {
             task: {
                 options: {
                     indexPath: 'regression/',
+                    useImageMagick: true,
                     screenSizes: ['1280'],
                     urls: [
                         '<%%= url %>',
