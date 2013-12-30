@@ -73,7 +73,7 @@ module.exports = function(grunt) {
 
         ejs: {
             options: {
-                dev: grunt.option('debug'),
+                debug: grunt.option('debug'),
                 cssName: '<%%= cssName %>',
                 bundleName: '<%%= bundleName %>'
             },
