@@ -246,10 +246,11 @@ module.exports = function(grunt) {
         'stylus', 'autoprefixer'
     ]);
 
-    // Create non-minified project snapshot in build directory and compress it
+    // Create non-minified project snapshot in build directory and compress it to zip
     grunt.registerTask('dist', [
         'build',
         'copy',
+        'imagemin',
         'compress'
     ]);
 
