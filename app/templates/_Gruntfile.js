@@ -23,6 +23,7 @@ module.exports = function(grunt) {
         vendorDir: 'vendor',
         cssName: 'main',
         bundleName: 'bundle',
+        url: 'http://localhost:9001',
 
         connect: {
             server: {
@@ -207,6 +208,18 @@ module.exports = function(grunt) {
             }
         },
 
+        photobox: {
+            task: {
+                options: {
+                    indexPath: 'regression/',
+                    screenSizes: ['1280'],
+                    urls: [
+                        '<%%= url %>',
+                    ]
+                }
+            }
+        },
+
         watch: {
             ejs: {
                 files: ['<%%= srcDir %>/<%%= pagesDir %>/{,*/}*.ejs'],
@@ -251,6 +264,7 @@ module.exports = function(grunt) {
         'build',
         'copy',
         'imagemin',
+        'photobox',
         'compress'
     ]);
 
