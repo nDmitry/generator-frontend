@@ -178,7 +178,7 @@ module.exports = function(grunt) {
             hidpi: {
                 src: '<%%= srcDir %>/<%%= imgDir %>/sprites/2x/*.png',
                 destImg: '<%%= buildDir %>/<%%= imgDir %>/sprite_2x.png',
-                destCSS: '<%%= srcDir %>/<%%= stylusDir %>/partials/sprites.styl',
+                destCSS: '<%%= srcDir %>/<%%= stylusDir %>/partials/sprites_2x.styl',
                 imgPath: '../<%%= imgDir %>/sprite_2x.png',
                 algorithm: 'binary-tree',
                 engine: 'gm',
