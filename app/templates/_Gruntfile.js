@@ -173,6 +173,9 @@ module.exports = function(grunt) {
                 imgPath: '../<%%= imgDir %>/sprite.png',
                 algorithm: 'binary-tree',
                 engine: 'gm',
+                engineOpts: {
+                    imagemagick: true
+                },
                 padding: 5
             },
             hidpi: {
@@ -182,6 +185,9 @@ module.exports = function(grunt) {
                 imgPath: '../<%%= imgDir %>/sprite_2x.png',
                 algorithm: 'binary-tree',
                 engine: 'gm',
+                engineOpts: {
+                    imagemagick: true
+                },
                 padding: 5
             }
         },
@@ -261,8 +267,11 @@ module.exports = function(grunt) {
 
     // Create non-minified project snapshot in build directory and compress it to zip
     grunt.registerTask('dist', [
-        'build',
+        'clean:build',
+        'ejs',
         'copy',
+        'sprite',
+        'stylus', 'autoprefixer',
         'imagemin',
         'photobox',
         'compress'
@@ -279,8 +288,11 @@ module.exports = function(grunt) {
 
     // Minify all JS and CSS, optimize images, rev JS and CSS and replace paths in HTML
     grunt.registerTask('minify', [
-        'build',
+        'clean:build',
+        'ejs',
         'copy:css', 'copy:img', 'copy:fonts',
+        'sprite',
+        'stylus', 'autoprefixer',
         'useminPrepare',
         'concat',
         'clean:css',
