@@ -27,7 +27,7 @@ describe('app generator', function() {
 
     it('creates expected files', function(done) {
         var expected = [
-            ['src/pages/index.ejs', /<title>Temp<\/title>/, /lang="ru"/],
+            'src/pages/index.ejs',
             'src/pages/partials/header.ejs',
             'src/pages/partials/footer.ejs',
             'src/pages/partials/scripts.ejs',
@@ -36,9 +36,9 @@ describe('app generator', function() {
             '.editorconfig',
             '.jshintrc',
             '.bowerrc',
-            ['bower.json', /"name": "temp"/],
-            ['package.json', /"name": "temp"/],
-            'Gruntfile.js'
+            'Gruntfile.js',
+            'bower.json',
+            'package.json'
         ];
 
         helpers.mockPrompt(this.app, {
@@ -47,7 +47,25 @@ describe('app generator', function() {
         });
 
         this.app.run({}, function() {
-            helpers.assertFiles(expected);
+            helpers.assertFile(expected);
+            done();
+        });
+    });
+
+    it('replaces templates variables', function(done) {
+        var expected = [
+            ['src/pages/index.ejs', /<title>Temp<\/title>/, /lang="ru"/],
+            ['bower.json', /"name": "temp"/],
+            ['package.json', /"name": "temp"/],
+        ];
+
+        helpers.mockPrompt(this.app, {
+            projectName: 'temp',
+            lang: 'ru'
+        });
+
+        this.app.run({}, function() {
+            helpers.assertFileContent(expected);
             done();
         });
     });

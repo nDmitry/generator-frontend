@@ -1,8 +1,5 @@
 .editorconfig
-.gitattributes
 .gitignore
 .jshintrc
 .travis.yml
 test
-LICENCE
-README.md

@@ -1,8 +1,9 @@
 # generator-frontend [![Build Status](https://secure.travis-ci.org/nDmitry/generator-frontend.png?branch=master)](https://travis-ci.org/nDmitry/generator-frontend) ![David](https://david-dm.org/nDmitry/generator-frontend.png)
 
-Scaffolds out the boilerplate for front-end development with Grunt and Stylus.
+Scaffolds out a boilerplate for front-end development with Grunt and Stylus.
 
 ## Getting started
+– Install [GraphicsMagick](http://www.graphicsmagick.org/README.html) (`brew install graphicsmagick` for OS X)
 - Make sure you have [yo](https://github.com/yeoman/yo) installed: `npm install -g yo`
 - Install the generator: `npm install [-g] generator-frontend`
 - Run: `yo frontend`

@@ -173,9 +173,6 @@ module.exports = function(grunt) {
                 imgPath: '../<%%= imgDir %>/sprite.png',
                 algorithm: 'binary-tree',
                 engine: 'gm',
-                engineOpts: {
-                    imagemagick: true
-                },
                 padding: 5
             },
             hidpi: {
@@ -185,9 +182,6 @@ module.exports = function(grunt) {
                 imgPath: '../<%%= imgDir %>/sprite_2x.png',
                 algorithm: 'binary-tree',
                 engine: 'gm',
-                engineOpts: {
-                    imagemagick: true
-                },
                 padding: 5
             }
         },
@@ -218,7 +212,7 @@ module.exports = function(grunt) {
             task: {
                 options: {
                     indexPath: 'regression/',
-                    useImageMagick: true,
+                    template: 'canvas',
                     screenSizes: ['1280'],
                     urls: [
                         '<%%= url %>',
