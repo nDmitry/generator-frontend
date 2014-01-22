@@ -60,7 +60,7 @@ module.exports = function(grunt) {
             fonts: {
                 expand: true,
                 cwd: '<%%= srcDir %>/<%%= fontsDir %>/',
-                src: '{,*/}*',
+                src: '{,*/}*.{eot,otf,svg,ttf,woff}',
                 dest: '<%%= buildDir %>/<%%= fontsDir %>/'
             },
 
@@ -245,7 +245,7 @@ module.exports = function(grunt) {
                     '<%%= buildDir %>/**',
                     '<%%= srcDir %>/<%%= cssDir %>/{,*/}*.css',
                     '<%%= srcDir %>/<%%= imgDir %>/**/*',
-                    '<%%= srcDir %>/<%%= fontsDir %>/{,*/}*',
+                    '<%%= srcDir %>/<%%= fontsDir %>/{,*/}*.{eot,otf,svg,ttf,woff}',
                     '<%%= srcDir %>/<%%= jsDir %>/**/*.js'
                 ]
             }
