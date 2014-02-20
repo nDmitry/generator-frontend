@@ -2,6 +2,6 @@
   "name": "<%= _.slugify(projectName) %>",
   "private": true,
   "dependencies": {
-      "jquery": "~1.10.2"
+      "jquery": "~1.11.0"
   }
 }
