@@ -2,6 +2,7 @@
   "name": "<%= _.slugify(projectName) %>",
   "private": true,
   "dependencies": {
+      "normalize.css": "~3.0.0",
       "jquery": "~1.11.0"
   }
 }
