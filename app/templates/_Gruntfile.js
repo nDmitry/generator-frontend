@@ -10,9 +10,8 @@ module.exports = function(grunt) {
     grunt.initConfig({
 
         banner: '/*! <%%= grunt.template.today("yyyy-mm-dd, h:MM:ss TT") %> */\n',
-        bower: grunt.file.readJSON('.bowerrc'),
 
-        srcDir: 'src',
+        componentsDir: 'bower_components',
         buildDir: 'dist',
         cssDir: 'css',
         stylusDir: 'stylus',
@@ -20,17 +19,13 @@ module.exports = function(grunt) {
         imgDir: 'img',
         fontsDir: 'fonts',
         pagesDir: 'pages',
-        vendorDir: 'vendor',
-        cssName: 'main',
-        bundleName: 'bundle',
-        url: 'http://localhost:9001',
 
         connect: {
             server: {
                 options: {
                     hostname: '*',
                     port: grunt.option('port') || 9001,
-                    base: ['<%%= buildDir %>/', '<%%= srcDir %>/'],
+                    base: ['<%%= buildDir %>/', './'],
                     livereload: true
                 }
             }
@@ -38,51 +33,33 @@ module.exports = function(grunt) {
 
         clean: {
             build: {src: '<%%= buildDir %>/'},
-            css: {src: '<%%= copy.css.dest %>'},
+            css: {src: '<%%= stylus.dist.dest %>'},
             tmp: {src: '.tmp/'}
         },
 
         copy: {
-            css: {
-                expand: true,
-                cwd: '<%%= srcDir %>/<%%= cssDir %>/',
-                src: '{,*/}*',
-                dest: '<%%= buildDir %>/<%%= cssDir %>/'
-            },
-
             img: {
-                expand: true,
-                cwd: '<%%= srcDir %>/<%%= imgDir %>/',
-                src: ['{,*/}*', '!sprites/{,*/}*'],
-                dest: '<%%= buildDir %>/<%%= imgDir %>/'
+                src: '<%%= imgDir %>/**',
+                dest: '<%%= buildDir %>/'
             },
 
             fonts: {
-                expand: true,
-                cwd: '<%%= srcDir %>/<%%= fontsDir %>/',
-                src: '{,*/}*.{eot,otf,svg,ttf,woff}',
-                dest: '<%%= buildDir %>/<%%= fontsDir %>/'
+                src: '<%%= fontsDir %>/{,*/}*.{eot,otf,svg,ttf,woff}',
+                dest: '<%%= buildDir %>/'
             },
 
             js: {
-                expand: true,
-                cwd: '<%%= srcDir %>/<%%= jsDir %>/',
-                src: '**/*.js',
-                dest: '<%%= buildDir %>/<%%= jsDir %>/'
+                src: '<%%= jsDir %>/**',
+                dest: '<%%= buildDir %>/'
             }
         },
 
         ejs: {
-            options: {
-                debug: grunt.option('debug'),
-                cssName: '<%%= cssName %>',
-                bundleName: '<%%= bundleName %>'
-            },
             dist: {
                 expand: true,
-                ext: '.html',
                 flatten: true,
-                src: ['<%%= srcDir %>/<%%= pagesDir %>/*.ejs'],
+                ext: '.html',
+                src: '<%%= pagesDir %>/*.ejs',
                 dest: '<%%= buildDir %>/'
             }
         },
@@ -92,18 +69,17 @@ module.exports = function(grunt) {
                 options: {
                     compress: false
                 },
-                files: {
-                    '<%%= buildDir %>/<%%= cssDir %>/<%%= cssName %>.css': '<%%= srcDir %>/<%%= stylusDir %>/index.styl'
-                }
+                src: '<%%= stylusDir %>/index.styl',
+                dest: '<%%= buildDir %>/<%%= cssDir %>/app.css'
             }
         },
 
         autoprefixer: {
             options: {
-                browsers: ['> 1%', 'last 2 versions', 'ff 24', 'opera 12.1', 'ie 8', 'ie 9']
+                browsers: ['> 1%', 'last 2 versions', 'Firefox ESR', 'Opera 12.1', 'ie 8', 'ie 9']
             },
             dist: {
-                src: '<%%= buildDir %>/<%%= cssDir %>/<%%= cssName %>.css'
+                src: '<%%= stylus.dist.dest %>'
             }
         },
 
@@ -124,7 +100,7 @@ module.exports = function(grunt) {
                 'unique-headings': false
             },
             dist: {
-                src: '<%%= buildDir %>/<%%= cssDir %>/<%%= cssName %>.css'
+                src: '<%%= stylus.dist.dest %>'
             }
         },
 
@@ -144,7 +120,7 @@ module.exports = function(grunt) {
 
         useminPrepare: {
             options: {
-                dest: '<%%= buildDir %>'
+                root: './'
             },
             html: '<%%= buildDir %>/index.html'
         },
@@ -159,26 +135,26 @@ module.exports = function(grunt) {
             },
             dist: {
                 src: [
-                    '<%%= buildDir %>/<%%= cssDir %>/<%%= bundleName %>.css',
-                    '<%%= buildDir %>/<%%= jsDir %>/<%%= bundleName %>.js'
+                    '<%%= buildDir %>/<%%= cssDir %>/{vendor,app}.css',
+                    '<%%= buildDir %>/<%%= jsDir %>/{vendor,app}.js'
                 ]
             }
         },
 
         sprite: {
             dist: {
-                src: '<%%= srcDir %>/<%%= imgDir %>/sprites/*.png',
+                src: '<%%= imgDir %>/sprites/*.png',
                 destImg: '<%%= buildDir %>/<%%= imgDir %>/sprite.png',
-                destCSS: '<%%= srcDir %>/<%%= stylusDir %>/partials/sprites.styl',
+                destCSS: '<%%= stylusDir %>/partials/sprites.styl',
                 imgPath: '../<%%= imgDir %>/sprite.png',
                 algorithm: 'binary-tree',
                 engine: 'gm',
                 padding: 5
             },
             hidpi: {
-                src: '<%%= srcDir %>/<%%= imgDir %>/sprites/2x/*.png',
+                src: '<%%= imgDir %>/sprites/2x/*.png',
                 destImg: '<%%= buildDir %>/<%%= imgDir %>/sprite_2x.png',
-                destCSS: '<%%= srcDir %>/<%%= stylusDir %>/partials/sprites_2x.styl',
+                destCSS: '<%%= stylusDir %>/partials/sprites_2x.styl',
                 imgPath: '../<%%= imgDir %>/sprite_2x.png',
                 algorithm: 'binary-tree',
                 engine: 'gm',
@@ -199,11 +175,22 @@ module.exports = function(grunt) {
         },
 
         compress: {
-            main: {
+            dist: {
                 options: {
                     archive: '<%%= buildDir %>.zip'
                 },
-                src: '<%%= buildDir %>/**',
+                expand: true,
+                cwd: '<%%= buildDir %>/',
+                src: ['**', '../<%%= componentsDir %>/**', '../bower.json'],
+                dest: './'
+            },
+            min: {
+                options: {
+                    archive: '<%%= buildDir %>.zip'
+                },
+                expand: true,
+                cwd: '<%%= buildDir %>/',
+                src: '**',
                 dest: './'
             }
         },
@@ -215,7 +202,7 @@ module.exports = function(grunt) {
                     template: 'canvas',
                     screenSizes: ['1280'],
                     urls: [
-                        '<%%= url %>',
+                        'http://localhost:9001',
                     ]
                 }
             }
@@ -223,12 +210,12 @@ module.exports = function(grunt) {
 
         watch: {
             ejs: {
-                files: ['<%%= srcDir %>/<%%= pagesDir %>/{,*/}*.ejs'],
+                files: ['<%%= pagesDir %>/{,*/}*.ejs'],
                 tasks: ['ejs']
             },
 
             stylus: {
-                files: ['<%%= srcDir %>/<%%= stylusDir %>/**/*.styl'],
+                files: ['<%%= stylusDir %>/**.styl'],
                 tasks: ['stylus', 'autoprefixer']
             },
 
@@ -239,14 +226,13 @@ module.exports = function(grunt) {
 
             livereload: {
                 options: {
-                    livereload: true
+                    livereload: true,
                 },
                 files: [
                     '<%%= buildDir %>/**',
-                    '<%%= srcDir %>/<%%= cssDir %>/{,*/}*.css',
-                    '<%%= srcDir %>/<%%= imgDir %>/**/*',
-                    '<%%= srcDir %>/<%%= fontsDir %>/{,*/}*.{eot,otf,svg,ttf,woff}',
-                    '<%%= srcDir %>/<%%= jsDir %>/**/*.js'
+                    '<%%= copy.img.src %>',
+                    '<%%= copy.fonts.src %>',
+                    '<%%= copy.js.src %>'
                 ]
             }
         }
@@ -257,19 +243,17 @@ module.exports = function(grunt) {
     grunt.registerTask('build', [
         'clean:build',
         'ejs',
+        'sprite',
         'stylus', 'autoprefixer'
     ]);
 
     // Create non-minified project snapshot in build directory and compress it to zip
     grunt.registerTask('dist', [
-        'clean:build',
-        'ejs',
+        'build',
         'copy',
-        'sprite',
-        'stylus', 'autoprefixer',
         'imagemin',
         'photobox',
-        'compress'
+        'compress:dist'
     ]);
 
     grunt.registerTask('serve', [
@@ -283,19 +267,17 @@ module.exports = function(grunt) {
 
     // Minify all JS and CSS, optimize images, rev JS and CSS and replace paths in HTML
     grunt.registerTask('minify', [
-        'clean:build',
-        'ejs',
-        'copy:css', 'copy:img', 'copy:fonts',
-        'sprite',
-        'stylus', 'autoprefixer',
+        'build',
+        'copy:img', 'copy:fonts',
         'useminPrepare',
         'concat',
-        'clean:css',
         'cssmin',
         'uglify',
         'filerev',
         'usemin',
         'imagemin',
+        'clean:css',
+        'compress:min',
         'clean:tmp'
     ]);
 

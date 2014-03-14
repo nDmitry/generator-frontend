@@ -27,15 +27,14 @@ describe('app generator', function() {
 
     it('creates expected files', function(done) {
         var expected = [
-            'src/pages/index.ejs',
-            'src/pages/partials/header.ejs',
-            'src/pages/partials/footer.ejs',
-            'src/pages/partials/scripts.ejs',
-            'src/js/app.js',
+            'pages/index.ejs',
+            'pages/partials/header.ejs',
+            'pages/partials/footer.ejs',
+            'pages/partials/scripts.ejs',
+            'js/app.js',
             '.gitignore',
             '.editorconfig',
             '.jshintrc',
-            '.bowerrc',
             'Gruntfile.js',
             'bower.json',
             'package.json'
@@ -54,7 +53,7 @@ describe('app generator', function() {
 
     it('replaces templates variables', function(done) {
         var expected = [
-            ['src/pages/index.ejs', /<title>Temp<\/title>/, /lang="ru"/],
+            ['pages/index.ejs', /<title>Temp<\/title>/, /lang="ru"/],
             ['bower.json', /"name": "temp"/],
             ['package.json', /"name": "temp"/],
         ];

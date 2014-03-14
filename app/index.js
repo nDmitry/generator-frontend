@@ -15,7 +15,6 @@ module.exports = yo.generators.Base.extend({
         });
 
         this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
-        this.bwr = JSON.parse(this.readFileAsString(path.join(__dirname, '/templates/bowerrc')));
     },
 
     askFor: function() {
@@ -47,19 +46,19 @@ module.exports = yo.generators.Base.extend({
     },
 
     scaffold: function() {
-        this.directory('src/', 'src/');
+        this.directory('js/', 'js/');
+        this.directory('pages/', 'pages/');
 
-        this.mkdir('src/fonts');
-        this.mkdir('src/img/sprites/2x');
+        this.mkdir('fonts');
+        this.mkdir('img/sprites/2x');
 
         this.copy('_gitignore', '.gitignore');
         this.copy('editorconfig', '.editorconfig');
         this.copy('jshintrc', '.jshintrc');
-        this.copy('bowerrc', '.bowerrc');
 
         this.template('_bower.json', 'bower.json');
         this.template('_package.json', 'package.json');
         this.template('_Gruntfile.js', 'Gruntfile.js');
-        this.template('_index.ejs', 'src/pages/index.ejs');
+        this.template('_index.ejs', 'pages/index.ejs');
     }
 });

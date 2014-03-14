@@ -11,7 +11,7 @@ module.exports = yo.generators.Base.extend({
             {
                 name: 'path',
                 message: 'Path',
-                default: 'src/stylus/'
+                default: 'stylus/'
             }
         ];
 
