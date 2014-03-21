@@ -120,7 +120,7 @@ module.exports = function(grunt) {
 
         useminPrepare: {
             options: {
-                root: './'
+                root: ['./', '<%%= buildDir %>/']
             },
             html: '<%%= buildDir %>/index.html'
         },
@@ -135,8 +135,8 @@ module.exports = function(grunt) {
             },
             dist: {
                 src: [
-                    '<%%= buildDir %>/<%%= cssDir %>/{vendor,app}.css',
-                    '<%%= buildDir %>/<%%= jsDir %>/{vendor,app}.js'
+                    '<%%= buildDir %>/<%%= cssDir %>/app.css',
+                    '<%%= buildDir %>/<%%= jsDir %>/app.js'
                 ]
             }
         },
