@@ -23,8 +23,8 @@
     "grunt-filerev": "~0.2.0",
     "grunt-photobox": "~0.8.0",
     "grunt-spritesmith": "~1.22.0",
-    "grunt-usemin": "~2.0.2",
+    "grunt-usemin": "~2.1.0",
     "load-grunt-tasks": "~0.4.0",
-    "time-grunt": "~0.2.8"
+    "time-grunt": "~0.3.1"
   }
 }
