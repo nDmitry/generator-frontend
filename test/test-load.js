@@ -10,8 +10,8 @@ describe('Generator', function() {
         assert(app !== undefined);
     });
 
-    it('can be imported without blowing up (stylus)', function() {
-        var stylus = require('../stylus');
+    it('can be imported without blowing up (sass)', function() {
+        var stylus = require('../sass');
         assert(stylus !== undefined);
     });
 });

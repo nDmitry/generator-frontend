@@ -6,7 +6,7 @@ var path = require('path');
 var helpers = require('yeoman-generator').test;
 
 
-describe('stylus generator', function() {
+describe('sass generator', function() {
     this.timeout(10000);
 
     beforeEach(function(done) {
@@ -15,8 +15,8 @@ describe('stylus generator', function() {
                 return done(err);
             }
 
-            this.app = helpers.createGenerator('frontend:stylus', [
-                '../../stylus'
+            this.app = helpers.createGenerator('frontend:sass', [
+                '../../sass'
             ]);
 
             this.app.options['skip-install'] = true;
@@ -27,11 +27,12 @@ describe('stylus generator', function() {
 
     it('creates expected files', function(done) {
         var expected = [
-            'stylus/index.styl',
+            'sass/main.scss',
+            'config.rb'
         ];
 
         helpers.mockPrompt(this.app, {
-            path: 'stylus/'
+            path: 'sass/'
         });
 
         this.app.run({}, function() {

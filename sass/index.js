@@ -11,7 +11,7 @@ module.exports = yo.generators.Base.extend({
             {
                 name: 'path',
                 message: 'Path',
-                default: 'stylus/'
+                default: 'sass/'
             }
         ];
 
@@ -29,23 +29,15 @@ module.exports = yo.generators.Base.extend({
     scaffold: function() {
         var cb = this.async();
 
-        this.log.info('Fetching Stylus lib...');
+        this.log.info('Fetching Sass framework...');
 
-        this.remote('nDmitry', 'stylus', function(err, remote) {
+        this.remote('nDmitry', 'sass', function(err, remote) {
             if (err) {
                 return cb(err);
             }
 
-            remote.directory('lib/', path.join(this.path, 'lib/'));
-            remote.directory('partials/', path.join(this.path, 'partials/'));
-
-            var files = this.expandFiles('*.styl', {
-                cwd: remote.cachePath
-            });
-
-            files.map(function(filename) {
-                remote.copy(filename, path.join(this.path, filename));
-            }.bind(this));
+            remote.directory('sass/', this.path);
+            remote.copy('config.rb', 'config.rb');
 
             cb();
         }.bind(this));

@@ -14,7 +14,7 @@ module.exports = function(grunt) {
         componentsDir: 'bower_components',
         buildDir: 'dist',
         cssDir: 'css',
-        stylusDir: 'stylus',
+        sassDir: 'sass',
         jsDir: 'js',
         imgDir: 'img',
         fontsDir: 'fonts',
@@ -33,7 +33,7 @@ module.exports = function(grunt) {
 
         clean: {
             build: {src: '<%%= buildDir %>/'},
-            css: {src: '<%%= stylus.dist.dest %>'},
+            css: {src: '<%%= buildDir %>/<%%= cssDir %>/main.css'},
             tmp: {src: '.tmp/'}
         },
 
@@ -64,13 +64,11 @@ module.exports = function(grunt) {
             }
         },
 
-        stylus: {
+        compass: {
             dist: {
                 options: {
-                    compress: false
-                },
-                src: '<%%= stylusDir %>/index.styl',
-                dest: '<%%= buildDir %>/<%%= cssDir %>/app.css'
+                    config: 'config.rb'
+                }
             }
         },
 
@@ -79,7 +77,7 @@ module.exports = function(grunt) {
                 browsers: ['> 1%', 'last 2 versions', 'Firefox ESR', 'Opera 12.1', 'ie 8', 'ie 9']
             },
             dist: {
-                src: '<%%= stylus.dist.dest %>'
+                src: '<%%= buildDir %>/<%%= cssDir %>/main.css'
             }
         },
 
@@ -100,7 +98,7 @@ module.exports = function(grunt) {
                 'unique-headings': false
             },
             dist: {
-                src: '<%%= stylus.dist.dest %>'
+                src: '<%%= buildDir %>/<%%= cssDir %>/main.css'
             }
         },
 
@@ -135,30 +133,9 @@ module.exports = function(grunt) {
             },
             dist: {
                 src: [
-                    '<%%= buildDir %>/<%%= cssDir %>/app.css',
+                    '<%%= buildDir %>/<%%= cssDir %>/main.css',
                     '<%%= buildDir %>/<%%= jsDir %>/app.js'
                 ]
-            }
-        },
-
-        sprite: {
-            dist: {
-                src: '<%%= imgDir %>/sprites/*.png',
-                destImg: '<%%= buildDir %>/<%%= imgDir %>/sprite.png',
-                destCSS: '<%%= stylusDir %>/partials/sprites.styl',
-                imgPath: '../<%%= imgDir %>/sprite.png',
-                algorithm: 'binary-tree',
-                engine: 'gm',
-                padding: 5
-            },
-            hidpi: {
-                src: '<%%= imgDir %>/sprites/2x/*.png',
-                destImg: '<%%= buildDir %>/<%%= imgDir %>/sprite_2x.png',
-                destCSS: '<%%= stylusDir %>/partials/sprites_2x.styl',
-                imgPath: '../<%%= imgDir %>/sprite_2x.png',
-                algorithm: 'binary-tree',
-                engine: 'gm',
-                padding: 5
             }
         },
 
@@ -214,14 +191,9 @@ module.exports = function(grunt) {
                 tasks: ['ejs']
             },
 
-            stylus: {
-                files: ['<%%= stylusDir %>/**.styl'],
-                tasks: ['stylus', 'autoprefixer']
-            },
-
-            sprite: {
-                files: ['<%%= sprite.dist.src %>', '<%%= sprite.hidpi.src %>'],
-                tasks: 'sprite'
+            sass: {
+                files: ['<%%= sassDir %>/**/*.scss'],
+                tasks: ['compass', 'autoprefixer']
             },
 
             livereload: {
@@ -243,8 +215,8 @@ module.exports = function(grunt) {
     grunt.registerTask('build', [
         'clean:build',
         'ejs',
-        'sprite',
-        'stylus', 'autoprefixer'
+        'compass',
+        'autoprefixer'
     ]);
 
     // Create non-minified project snapshot in build directory and compress it to zip
