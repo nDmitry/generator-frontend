@@ -50,7 +50,6 @@ module.exports = yo.generators.Base.extend({
         this.directory('pages/', 'pages/');
 
         this.mkdir('fonts');
-        this.mkdir('img/sprites/2x');
 
         this.copy('_gitignore', '.gitignore');
         this.copy('editorconfig', '.editorconfig');

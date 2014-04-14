@@ -41,5 +41,8 @@ module.exports = yo.generators.Base.extend({
 
             cb();
         }.bind(this));
+
+        this.mkdir('img/sprites');
+        this.mkdir('img/sprites_2x');
     }
 });
