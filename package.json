@@ -5,18 +5,13 @@
   "keywords": [
     "yeoman-generator"
   ],
-  "homepage": "https://github.com/nDmitry/generator-frontend",
-  "bugs": "https://github.com/nDmitry/generator-frontend/issues",
   "author": {
-    "name": "nDmitry",
+    "name": "Dmitry Nikitenko",
     "email": "dima.nikitenko@gmail.com",
     "url": "https://github.com/nDmitry"
   },
   "main": "app/index.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/nDmitry/generator-frontend.git"
-  },
+  "repository": "nDmitry/generator-frontend",
   "scripts": {
     "test": "mocha"
   },
@@ -29,9 +24,5 @@
   "engines": {
     "node": ">=0.8.0"
   },
-  "licenses": [
-    {
-      "type": "MIT"
-    }
-  ]
+  "licenses": "MIT"
 }
