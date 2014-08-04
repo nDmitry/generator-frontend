@@ -64,11 +64,14 @@ module.exports = function(grunt) {
             }
         },
 
-        compass: {
+        sass: {
             dist: {
                 options: {
-                    config: 'config.rb'
-                }
+                    style: 'expanded',
+                    compass: true
+                },
+                src: '<%%= sassDir %>/main.scss',
+                dest: '<%%= buildDir %>/<%%= cssDir %>/main.css'
             }
         },
 
@@ -193,7 +196,7 @@ module.exports = function(grunt) {
 
             sass: {
                 files: ['<%%= sassDir %>/**/*.scss'],
-                tasks: ['compass', 'autoprefixer']
+                tasks: ['sass', 'autoprefixer']
             },
 
             livereload: {
@@ -215,7 +218,7 @@ module.exports = function(grunt) {
     grunt.registerTask('build', [
         'clean:build',
         'ejs',
-        'compass',
+        'sass',
         'autoprefixer'
     ]);
 
