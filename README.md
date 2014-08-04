@@ -1,6 +1,6 @@
 # generator-frontend [![Build Status](https://secure.travis-ci.org/nDmitry/generator-frontend.png?branch=master)](https://travis-ci.org/nDmitry/generator-frontend) ![David](https://david-dm.org/nDmitry/generator-frontend.png)
 
-Scaffolds out a boilerplate for front-end development with Grunt and Stylus.
+Scaffolds out a boilerplate for front-end development with Grunt and Sass.
 
 ## Getting started
 – Install [GraphicsMagick](http://www.graphicsmagick.org/README.html) (`brew install graphicsmagick` for OS X)
@@ -9,26 +9,25 @@ Scaffolds out a boilerplate for front-end development with Grunt and Stylus.
 - Run: `yo frontend`
 
 ## Subgenerators
-Generator includes two subgenerators: `app` and `stylus`. You can run them separately with the commands: `yo frontend:app` and `yo frontend:stylus`.
+The generator includes two subgenerators: `app` and `sass`. You can run them with these commands: `yo frontend:app` and `yo frontend:sass`.
 
 ### App subgenerator
-The subgenerator scaffolds out some starting files (e.g. `app.js`, EJS templates based on h5bp), Gruntfile.js to process them and build, Bower config files, `.jshintrc`, `.editorconfig` and `.gitignore`.
+The subgenerator scaffolds out some starting files (e.g. `app.js`, EJS templates mostly based on h5bp), Gruntfile.js, bower.json, .jshintrc, .editorconfig and .gitignore.
 
 List of what my Grunt config can do for you:
 * Local Connect web-server
 * Live reloading
 * Compiling EJS templates to HTML
-* Compiling Stylus
+* Compiling Sass with Compass
 * Prefixing your output CSS with Autoprefixer
-* Spriting with output to sprites.styl file
 * CSS liniting
-* CSS and JS minification (`usemin`)
+* CSS and JS concatenation/minification
 * Revving filenames
-* Image optimization
+* Images optimization
 * And more...
 
-### Stylus subgenerator
-This subgenerator just fetches my Stylus [library](https://github.com/nDmitry/stylus) and copies it to `src/stylus` directory (by default).
+### Sass subgenerator
+This subgenerator just fetches my Sass [library](https://github.com/nDmitry/sass) and copies it to `sass` directory (by default).
 
 ## License
 [MIT License](http://en.wikipedia.org/wiki/MIT_License)
