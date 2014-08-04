@@ -16,10 +16,10 @@
     "test": "mocha"
   },
   "dependencies": {
-    "yeoman-generator": "~0.16.0"
+    "yeoman-generator": "^0.17.1"
   },
   "devDependencies": {
-    "mocha": "~1.18.0"
+    "mocha": "^1.21.3"
   },
   "engines": {
     "node": ">=0.10.0"

@@ -144,7 +144,7 @@ module.exports = function(grunt) {
 
         imagemin: {
             options: {
-                pngquant: true
+                use: [require('imagemin-pngquant')()]
             },
             dist: {
                 expand: true,
