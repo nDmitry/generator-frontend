@@ -79,7 +79,7 @@ module.exports = function(grunt) {
 
         autoprefixer: {
             options: {
-                browsers: ['> 1%', 'last 2 versions', 'Firefox ESR', 'Opera 12.1', 'ie 8', 'ie 9']
+                browsers: ['last 2 versions', 'Firefox ESR', 'Opera 12.1', 'Explorer >= 8']
             },
             dist: {
                 src: '<%%= buildDir %>/<%%= cssDir %>/main.css'
