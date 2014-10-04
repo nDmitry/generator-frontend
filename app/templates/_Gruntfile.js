@@ -68,7 +68,9 @@ module.exports = function(grunt) {
             dist: {
                 options: {
                     style: 'expanded',
-                    compass: true
+                    update: true,
+                    compass: true,
+                    sourcemap: 'none'
                 },
                 src: '<%%= sassDir %>/main.scss',
                 dest: '<%%= buildDir %>/<%%= cssDir %>/main.css'
