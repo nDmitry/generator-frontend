@@ -19,7 +19,7 @@
     "yeoman-generator": "^0.17.1"
   },
   "devDependencies": {
-    "mocha": "^1.21.3"
+    "mocha": "^2.0.1"
   },
   "engines": {
     "node": ">=0.10.0"
