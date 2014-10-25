@@ -54,12 +54,16 @@ module.exports = function(grunt) {
             }
         },
 
-        ejs: {
+        jade: {
+            options: {
+                pretty: true
+            },
             dist: {
                 expand: true,
                 flatten: true,
                 ext: '.html',
-                src: '<%%= pagesDir %>/*.ejs',
+                cwd: '<%%= pagesDir %>/',
+                src: ['{,*/}*.jade', '!layout.jade'],
                 dest: '<%%= buildDir %>/'
             }
         },
@@ -192,9 +196,9 @@ module.exports = function(grunt) {
         },
 
         watch: {
-            ejs: {
-                files: ['<%%= pagesDir %>/{,*/}*.ejs'],
-                tasks: ['ejs']
+            jade: {
+                files: ['<%%= pagesDir %>/{,*/}*.jade'],
+                tasks: ['jade']
             },
 
             sass: {
@@ -220,7 +224,7 @@ module.exports = function(grunt) {
     // Compile all files that should be compiled
     grunt.registerTask('build', [
         'clean:build',
-        'ejs',
+        'jade',
         'sass',
         'autoprefixer'
     ]);

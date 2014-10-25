@@ -1,0 +1,39 @@
+doctype html
+<!--[if IE 7]>         <html lang="<%= lang %>" class="no-js is-ie7 oldie"><![endif]-->
+<!--[if IE 8]>         <html lang="<%= lang %>" class="no-js is-ie8 oldie"><![endif]-->
+<!--[if IE 9]>         <html lang="<%= lang %>" class="no-js is-ie9"><![endif]-->
+<!--[if gt IE 9]><!--> <html lang="<%= lang %>" class="no-js"><!--<![endif]-->
+head
+  meta(charset='utf-8')
+  meta(http-equiv='X-UA-Compatible', content='IE=edge')
+
+  block title
+    title <%= _.capitalize(projectName) %>
+
+  meta(name='viewport' content='width=device-width, initial-scale=1')
+
+  // build:css css/main.css
+  link(rel='stylesheet', href='bower_components/normalize.css/normalize.css')
+  link(rel='stylesheet', href='css/main.css')
+  // endbuild
+
+  <!--[if lt IE 9]>
+  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+body
+  .l-wrapper
+    div(class='l-header', role='banner')
+      nav(class='nav', role='navigation')
+
+    main(role='main')
+      block content
+
+    div(class='l-footer', role='contentinfo')
+
+  // build:js js/app.js
+  script(src='bower_components/jquery/dist/jquery.js')
+  script(src='js/app.js')
+  // endbuild
+
+</html>

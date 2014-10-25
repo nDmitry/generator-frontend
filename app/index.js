@@ -58,6 +58,6 @@ module.exports = yo.generators.Base.extend({
         this.template('_bower.json', 'bower.json');
         this.template('_package.json', 'package.json');
         this.template('_Gruntfile.js', 'Gruntfile.js');
-        this.template('_index.ejs', 'pages/index.ejs');
+        this.template('_layout.jade', 'pages/layout.jade');
     }
 });
