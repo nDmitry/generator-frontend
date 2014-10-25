@@ -5,6 +5,10 @@
   "keywords": [
     "yeoman-generator"
   ],
+  "files": [
+    "app",
+    "sass"
+  ],
   "author": {
     "name": "Dmitry Nikitenko",
     "email": "dima.nikitenko@gmail.com",
