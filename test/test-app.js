@@ -27,10 +27,8 @@ describe('app generator', function() {
 
     it('creates expected files', function(done) {
         var expected = [
-            'pages/index.ejs',
-            'pages/partials/header.ejs',
-            'pages/partials/footer.ejs',
-            'pages/partials/scripts.ejs',
+            'pages/layout.jade',
+            'pages/index.jade',
             'js/app.js',
             '.gitignore',
             '.editorconfig',
@@ -53,7 +51,7 @@ describe('app generator', function() {
 
     it('replaces templates variables', function(done) {
         var expected = [
-            ['pages/index.ejs', /<title>Temp<\/title>/, /lang="ru"/],
+            ['pages/layout.jade', /title Temp/, /lang="ru"/],
             ['bower.json', /"name": "temp"/],
             ['package.json', /"name": "temp"/],
         ];
