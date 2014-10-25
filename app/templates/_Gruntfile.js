@@ -67,6 +67,7 @@ module.exports = function(grunt) {
         sass: {
             dist: {
                 options: {
+                    require: 'susy',
                     style: 'expanded',
                     update: true,
                     compass: true,
