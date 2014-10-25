@@ -15,12 +15,9 @@
     "trailing": true,
     "indent": 4,
     "quotmark": true,
-    "maxparams": 4,
     "boss": true,
     "eqnull": true,
     "lastsemic": true,
     "browser": true,
-    "jquery": true,
-    "node": true,
-    "worker": true
+    "node": true
 }
