@@ -2,6 +2,17 @@
 
 Scaffolds out a boilerplate for front-end development with Grunt and Sass.
 
+* Local Connect web-server
+* Live reloading
+* Jade templates
+* Sass with Compass and Susy
+* Prefixing your CSS with Autoprefixer
+* CSS linting
+* CSS and JS concatenation/minification
+* Resources revving
+* Image optimization
+* And more...
+
 ## Getting started
 – Install [GraphicsMagick](http://www.graphicsmagick.org/README.html) (`brew install graphicsmagick` for OS X)
 - Make sure you have [yo](https://github.com/yeoman/yo) installed: `npm install -g yo`
@@ -12,22 +23,16 @@ Scaffolds out a boilerplate for front-end development with Grunt and Sass.
 The generator includes two subgenerators: `app` and `sass`. You can run them with these commands: `yo frontend:app` and `yo frontend:sass`.
 
 ### App subgenerator
-The subgenerator scaffolds out some starting files (e.g. `app.js`, EJS templates mostly based on h5bp), Gruntfile.js, bower.json, .jshintrc, .editorconfig and .gitignore.
-
-List of what my Grunt config can do for you:
-* Local Connect web-server
-* Live reloading
-* Compiling EJS templates to HTML
-* Compiling Sass with Compass
-* Prefixing your output CSS with Autoprefixer
-* CSS liniting
-* CSS and JS concatenation/minification
-* Revving filenames
-* Images optimization
-* And more...
+Scaffolds out some starting files and configs.
 
 ### Sass subgenerator
-This subgenerator just fetches my Sass [library](https://github.com/nDmitry/sass) and copies it to `sass` directory (by default).
+Fetches my Sass [library](https://github.com/nDmitry/sass) and copies it to `sass` directory (by default).
+
+You should install some required gems first:
+
+```
+$ gem install sass compass susy
+```
 
 ## License
 [MIT License](http://en.wikipedia.org/wiki/MIT_License)
