@@ -3,6 +3,8 @@
   "private": true,
   "dependencies": {
       "normalize.css": "~3.0.1",
+      "es5-shim": "~4.0.3",
+      "es6-shim": "~0.20.0",
       "jquery": "~1.11.0"
   }
 }
